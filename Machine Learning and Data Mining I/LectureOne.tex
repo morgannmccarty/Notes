@@ -2,6 +2,7 @@
 
 \usepackage{hyperref}
 \usepackage[margin=0.5in]{geometry}
+\usepackage{amsmath}
 
 \title{Machine Learning and Data Mining I: Lecture 1}
 \author{Morgan McCarty}
@@ -9,4 +10,161 @@
 
 \begin{document}
     \maketitle
+
+    \section{Why Machine Learning?}
+        \subsection{An Example of Machine Learning in Action}
+            \begin{itemize}
+                \item The Kakapo is an endangered bird with a genetic disposition for disease
+                \item Machine Learning can be used to predict whether future Kakapos will be susceptible to disease by analyzing their genome
+            \end{itemize}
+        \subsection{The Use of Machine Learning}
+            \begin{itemize}
+                \item Data is ubiquitous
+                \item Predictions can be made using Data
+                \item Past situations can be analyzed to predict future situations
+                \item Machine Learning is a set of tools for understanding data
+            \end{itemize}
+    \section{Machine Learning: High Level}
+        \subsection{Questions}
+            \begin{itemize}
+                \item Can we really make our machines learn?
+                \begin{itemize}
+                    \item With lots of Data
+                    \item Rather than program expertise, we program the ability to learn from Data
+                    \item We can build machine learning models and use them to make remarkably accurate predictions
+                \end{itemize}
+            \end{itemize}
+        \subsection{How does it work?}
+            \begin{itemize}
+                \item The end goal is prediction
+                \item Most machine-learning models are trained to make predictions
+                \item This can be a simple model that uses a single variable (e.g. location) or a more complex model that uses many variables (e.g. location, time, weather, etc.)
+            \end{itemize}
+        \subsection{The Three Main Approaches}
+            \begin{itemize}
+                \item Classification (e.g. spam or not spam) [SVM, nearest neighbors, etc]
+                \\Identify which category an object belongs to
+                \item Regression (e.g. price of a house) [linear regression, random forest, SVR, etc]
+                \\Predicting a continuous-valued attribute associated with an object
+                \item Clustering (e.g. customer segmentation) [k-means, spectral clustering, a-priori, etc]
+                \\Automatic grouping of similar objects into sets
+            \end{itemize}
+        \subsection{Types of Machine Learning}
+            \begin{itemize}
+                \item \textbf{Supervised Learning}
+                \\A known input and output is supplied and the algorithm learns a general rule to map the input to the output
+                \item \textbf{Unsupervised Learning}
+                \\The model arrives at conclusions and determines patters through unlabeled data
+                \item Semi-Supervised Learning
+                \\The model is built with a mix of labeled and unlabeled data - e.g. sets of categories, suggestions, and example labels
+                \item Reinforcement Learning
+                \\A system is used to cause the model to learn through trial and error using rewards and punishments
+            \end{itemize}
+        \subsection{Focus of ML1}
+            \begin{itemize}
+                \item The main focus of this course is on supervised learning (classification and regression) with potential to additionally cover dimensionality reduction
+            \end{itemize}
+        \subsection{ML Recipe}
+            \begin{itemize}
+                \item Find a dataset
+                \item Explore the dataset for possible patterns or ideas
+                \item Split the dataset into training and testing sets
+                \item Build a model
+                \item Train the model
+            \end{itemize}
+        \subsection{Main Topics}
+            \begin{itemize}
+                \item Linear Regression for predictions
+                \item Classification (probabilistic and non-probabilistic)
+                \item Decision Trees
+                \item Neural Networks
+                \item Model selection, timing, optimization
+                \item Python for Machine Learning (Algorithms, tools, packages)
+                \item Ethics for Machine Learning
+            \end{itemize}
+        \subsection{Goals}
+            \begin{itemize}
+                \item Understand core machine-learning concepts and Approaches
+                \item Implemeents algorithms from scratch
+                \item Evaluate models using metrics appropriate for the given task/problem
+                \item Select and apply appropriate techniques
+                \item Understand the standard approaches
+                \item Understand potential ethical issues and make sure decisions are appropriate for the task
+            \end{itemize}
+    \section{History of Machine Learning}
+        \subsection{Timeline}
+            \begin{itemize}
+                \item AI $\approx 1950-1980$
+                \item ML $\approx 1980-2010$
+                \item Deep Learning $\approx 2010-\text{Now}$
+                \item Began with Bayes Theorem
+                \item Present day is dominated by Generative AI
+            \end{itemize}
+    \section{Methods}
+        \subsection{Linnear Regression}
+            \begin{itemize}
+                \item Introduced by Sir Francis Galton (1822-1911) in 1886
+                \item ``Regresson towards mediocrity'' (regression to the mean)
+                \item $y_i = \beta_0 + \beta_1 x_i^1 + \beta_2 x_i^2 + \cdots + \beta_p x_i^p + \epsilon_i$
+                \item Where for $i = 1, \ldots, n$ observations:
+                \begin{itemize}
+                    \item $y_i$ is the response variable (dependent variable)
+                    \item $x_i^1, \ldots, x_i^p$ are the predictor variables (independent variables) / explanatory variables
+                    \item $\beta_0, \ldots, \beta_p$ are the parameters
+                    \item $\beta_0$ is the intercept
+                    \item $\beta_p$ is the slope
+                    \item $\epsilon_i$ is the error term (aka the residual)
+                \end{itemize}
+                \item e.g. for house prices:
+                \begin{itemize}
+                    \item $y_i$ is the price of the house
+                    \item $x_i^1$ is the size of the house
+                    \item $x_i^2$ is the number of rooms
+                    \item $x_i^3$ is the zip-code
+                \end{itemize}
+                \item The goal is to find the best fit line (i.e. the line that minimizes the sum of the squared errors) to predict future values
+            \end{itemize}
+        \subsection{Classification}
+            \begin{itemize}
+                \item Input new data with a set of categories(e.g. a 2D dataset with shapes)
+                \item Pass through a classifier to determine which category the data belongs to
+                \item Output the type of the datapoint
+                \item e.g. Orchids (Iris Dataset)
+                \begin{itemize}
+                    \item $x_i^1$ is the sepal length
+                    \item $x_i^2$ is the sepal width
+                    \item $x_i^3$ is the petal length
+                    \item $x_i^4$ is the petal width
+                    \item The output is the type of orchid (setosa, versicolor, or virginica)
+                \end{itemize}
+            \end{itemize}
+        \subsection{Clustering}
+            \begin{itemize}
+                \item Input new data with no set of categories, but that has some type of grouping
+                \item Pass through a clustering algorithm to determine which group the data belongs to
+                \item e.g. anomaly detection
+                \item Uses a distance or simularity metric to determine which group the data belongs to
+                \item Outputs labels for the data that were not predefined
+            \end{itemize}
+        \subsection{Neural Networks and Deep Learning}
+            \begin{itemize}
+                \item Introduced with the perceptron
+                \item Inputs are passed through a series of layers
+                \item Weights are applied to the inputs
+                \item The inputs are summed and passed through an activation function
+                \item An output is produced
+                \item The perceptron evolved into the neural network and, later, deep learning through the addition of more layers (multilayer perceptron)
+            \end{itemize}
+        \subsection{Genetic Algorithms}
+            \begin{itemize}
+                \item Inspired by cellular reproduction and is used to optimize and train
+                \item A population of solutions is created and evaluated with a fitness function
+                \item The best solutions are selected and used to create a new population
+                \item This process is repeated until a solution is found or the maximum number of generations is reached
+            \end{itemize}
+        \subsection{Ethics of Machine Learning}
+            \begin{itemize}
+                \item Hidden variables can lead to bias when models are trained using data that is either not representative of the population or that is not diverse enough (or the population is not diverse enough and the model is applied to a diverse population)
+                \item As such it is important to consider the ethical implications of the data used to train models and the models themselves
+            \end{itemize}
 \end{document}
