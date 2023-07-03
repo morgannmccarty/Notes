@@ -2,6 +2,7 @@
 
 \usepackage{hyperref}
 \usepackage[margin=0.5in]{geometry}
+\usepackage{amsfonts}
 
 \title{Probability and Statistics: Lesson 1}
 \author{Morgan McCarty}
@@ -9,4 +10,69 @@
 
 \begin{document}
     \maketitle
+
+    \section{General Overview}
+        \subsection{Definitions}
+            \underline{Experiment}: procedure with undetermined \underline{outcomes}
+            \\\underline{Sample Space}: (S.S. or S) \underline{set} of all possible outcomes
+            \\\underline{Set}: a collection of things
+            \\\underline{Countable}: can be put in one-to-one correspondence with the natural numbers (integers are countable)
+            \\\underline{Discrete}: finite or countable
+            \\\underline{Continuous}: uncountable (in opposition to discrete)
+            \\\underline{Universal Set}: set of all possible outcomes equivalent to the sample space in a Probability experiment
+
+        \subsection{Symbols}
+            \begin{itemize}
+                \item $\in$: $x \in S$: $x$ is an element of $S$
+                \item $\notin$: $x \notin S$ $x$ is not an element of $S$
+            \end{itemize}
+        
+        \subsection{Examples}
+            \begin{itemize}
+                \item 
+                    \begin{itemize}
+                        \item Experiment: flip a coin
+                        \item Sample Space: $\{H, T\}$
+                        \\Sample Space is \textbf{finite}
+                    \end{itemize}
+                \item 
+                    \begin{itemize}
+                        \item Experiment: flip a coin until we get a tails
+                        \item Sample Space: $\{T, HT, HHT, HHHT, \cdots\}$
+                        \\Sample Space is \textbf{infinite}, but \textbf{countable}
+                    \end{itemize}
+                \item 
+                    \begin{itemize}
+                        \item Experiment: pick a number in the interval $[0, 1]$
+                        \item Sample Space: $[0, 1]$ or $\{ x \in \mathbb{R} \mid 0 \leq x \leq 1 \}$
+                        \\Sample Space is \textbf{infinite}, and \textbf{not countable}
+                    \end{itemize}
+            \end{itemize}
+        
+    \section{Events}
+        \subsection{Definitions}
+            \underline{Subset}: a set whose elements are all contained in another (super)set, additionally every set is a subset of itself and the empty set is a subset of every set
+            \\\underline{Event}: a subset of the sample space
+        \subsection{Symbols}
+            \begin{itemize}
+                \item $\subseteq$: $A \subseteq B$: $A$ is a subset of $B$
+                \item $\subset$: $A \subset B$: $A$ is a proper subset of $B$ (at least one element of $B$ is not in $A$)
+                \item $\emptyset$: the empty set
+            \end{itemize}
+        \subsection{Examples}
+            \begin{itemize}
+                \item 
+                    \begin{itemize}
+                        \item Roll a six-sided die
+                        \item $S = \{1, 2, 3, 4, 5, 6\}$
+                        \\Sample Space is \textbf{finite}
+                        \item Events:
+                            \begin{itemize}
+                                \item Event of rolling even numbers: $A = \{2, 4, 6\}$
+                                \item Event of rollng a ``$6$'': $B = \{6\}$
+                                \item Event of rollling a prime number: $C = \{2, 3, 5\}$
+                                \item Event of rolling a number $7$ or greater: $D = \emptyset$
+                            \end{itemize}
+                    \end{itemize}
+            \end{itemize}
 \end{document}
