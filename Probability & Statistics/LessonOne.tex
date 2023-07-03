@@ -2,7 +2,10 @@
 
 \usepackage{hyperref}
 \usepackage[margin=0.5in]{geometry}
+\usepackage[fleqn]{amsmath}
 \usepackage{amsfonts}
+\usepackage{amsthm}
+% \usepackage{tikz}
 
 \title{Probability and Statistics: Lesson 1}
 \author{Morgan McCarty}
@@ -13,13 +16,15 @@
 
     \section{General Overview}
         \subsection{Definitions}
-            \underline{Experiment}: procedure with undetermined \underline{outcomes}
-            \\\underline{Sample Space}: (S.S. or S) \underline{set} of all possible outcomes
-            \\\underline{Set}: a collection of things
-            \\\underline{Countable}: can be put in one-to-one correspondence with the natural numbers (integers are countable)
-            \\\underline{Discrete}: finite or countable
-            \\\underline{Continuous}: uncountable (in opposition to discrete)
-            \\\underline{Universal Set}: set of all possible outcomes equivalent to the sample space in a Probability experiment
+            \begin{enumerate}
+                \item \underline{Experiment}: procedure with undetermined \underline{outcomes}
+                \item \underline{Sample Space}: (S.S. or S) \underline{set} of all possible outcomes
+                \item \underline{Set}: a collection of things
+                \item \underline{Countable}: can be put in one-to-one correspondence with the natural numbers (integers are countable)
+                \item \underline{Discrete}: finite or countable
+                \item \underline{Continuous}: uncountable (in opposition to discrete)
+                \item \underline{Universal Set}: set of all possible outcomes equivalent to the sample space in a Probability experiment
+            \end{enumerate}
 
         \subsection{Symbols}
             \begin{itemize}
@@ -29,21 +34,18 @@
         
         \subsection{Examples}
             \begin{itemize}
-                \item 
+                \item Experiment: flip a coin
                     \begin{itemize}
-                        \item Experiment: flip a coin
                         \item Sample Space: $\{H, T\}$
                         \\Sample Space is \textbf{finite}
                     \end{itemize}
-                \item 
+                \item Experiment: flip a coin until we get a tails
                     \begin{itemize}
-                        \item Experiment: flip a coin until we get a tails
                         \item Sample Space: $\{T, HT, HHT, HHHT, \cdots\}$
                         \\Sample Space is \textbf{infinite}, but \textbf{countable}
                     \end{itemize}
-                \item 
+                \item Experiment: pick a number in the interval $[0, 1]$
                     \begin{itemize}
-                        \item Experiment: pick a number in the interval $[0, 1]$
                         \item Sample Space: $[0, 1]$ or $\{ x \in \mathbb{R} \mid 0 \leq x \leq 1 \}$
                         \\Sample Space is \textbf{infinite}, and \textbf{not countable}
                     \end{itemize}
@@ -51,8 +53,11 @@
         
     \section{Events}
         \subsection{Definitions}
-            \underline{Subset}: a set whose elements are all contained in another (super)set, additionally every set is a subset of itself and the empty set is a subset of every set
-            \\\underline{Event}: a subset of the sample space
+            \begin{enumerate}
+                \item \underline{Subset}: a set whose elements are all contained in another (super)set, additionally every set is a subset of itself and the empty set is a subset of every set
+                \item \underline{Event}: a subset of the sample space
+    
+            \end{enumerate}
         \subsection{Symbols}
             \begin{itemize}
                 \item $\subseteq$: $A \subseteq B$: $A$ is a subset of $B$
@@ -61,18 +66,165 @@
             \end{itemize}
         \subsection{Examples}
             \begin{itemize}
-                \item 
+                \item Rolling a six-sided die
                     \begin{itemize}
-                        \item Roll a six-sided die
                         \item $S = \{1, 2, 3, 4, 5, 6\}$
                         \\Sample Space is \textbf{finite}
                         \item Events:
                             \begin{itemize}
                                 \item Event of rolling even numbers: $A = \{2, 4, 6\}$
-                                \item Event of rollng a ``$6$'': $B = \{6\}$
-                                \item Event of rollling a prime number: $C = \{2, 3, 5\}$
+                                \item Event of rolling a ``$6$'': $B = \{6\}$
+                                \item Event of rolling a prime number: $C = \{2, 3, 5\}$
                                 \item Event of rolling a number $7$ or greater: $D = \emptyset$
                             \end{itemize}
                     \end{itemize}
             \end{itemize}
+    \section{Set Operations}
+        \subsection{Definitions}
+            Given sets $A$ and $B$:
+            \begin{enumerate}
+                \item \underline{Complement}: $A^c = \{x \mid x \in S \text{ and } x \notin A\}$
+                \item \underline{Intersection}: $A \cap B = \{x \mid x \in A \text{ and } x \in B\}$
+                \item \underline{Union}: $A \cup B = \{x \mid x \in A \text{ or } x \in B\}$
+                \item \underline{Disjoint}: if $A \cap B = \emptyset$, then $A$ and $B$ are disjoint
+                \item \underline{DeMorgan's Laws}: $(A \cup B)^c = A^c \cap B^c$ and $(A \cap B)^c = A^c \cup B^c$
+            \end{enumerate}
+        \subsection{Symbols}
+            Assume $A, B \subseteq S$
+            \begin{itemize}
+                \item $A^c$: complement of $A$
+                \item $A \cap B$: intersection of $A$ and $B$
+                \item $A \cup B$: union of $A$ and $B$
+                \item $A \sqcup B$: disjoint union of $A$ and $B$ (i.e. $A \cap B = \emptyset$)
+            \end{itemize}
+    \section{The Probability Function}
+        \subsection{Definitions}
+            \begin{enumerate}
+                \item \underline{$P(A)$}: probability of event $A$
+            \end{enumerate}
+        \subsection{Kolmolgorov's Axioms}
+            \begin{enumerate}
+                \item Axiom 1: $P(A) \geq 0$
+                \item Axiom 2: $P(S) = 1$
+                \item Axiom 3: If $A, B$ are disjoint, then $P(A \cup B) = P(A \sqcup B) = P(A) + P(B)$
+            \end{enumerate}
+        \subsection{Derived Properties}
+            \begin{enumerate}
+                \item $P(A^c) = 1 - P(A)$
+                \\Proof:
+                \begin{align*}
+                    A \sqcup A^c &= S \\
+                    P(S) &= P(A) + P(A^c) &\text{ [by Axiom 3]}\\
+                    1 &= P(A) + P(A^c) &\text{ [by Axiom 2]}\\
+                    P(A^c) &= 1 - P(A) &\qed
+                \end{align*}
+                \item $P(\emptyset) = 0$
+                \\Proof:
+                \begin{align*}
+                    \emptyset \sqcup S &= S \\
+                    P(S) &= P(\emptyset) + P(S) &\text{ [by Axiom 3]}\\
+                    1 &= P(\emptyset) + 1 &\text{ [by Axiom 2]}\\
+                    P(\emptyset) &= 0 &\qed
+                \end{align*}
+                \item $P(A) = P(A \cap B) + P(A \cap B^c)$
+                \\Proof:
+                \begin{align*}
+                    A &= A \cap S \\
+                    &= A \cap (B \sqcup B^c) &\text{ [by definition of complement]}\\
+                    &= (A \cap B) \sqcup (A \cap B^c) &\text{ [by distribution]}\\
+                    P(A) &= P(A \cap B) + P(A \cap B^c) &\qed \text{ [by Axiom 3]}
+                \end{align*}
+                \item If $A \subseteq B$, then $P(A) \leq P(B)$
+                \\Proof:
+                \begin{align*}
+                    B &= S \cap B &\text{ [by definition]}\\
+                    &= (A \sqcup A^c) \cap B &\text{ [by definition]}\\
+                    &= (A \sqcup A^c) \cap (A \cup B) &\text{ [by definiton of subset]}\\
+                    &= A \sqcup (B \cap A^c) &\text{ [by distribution]}\\
+                    P(B) &= P(A) + P(B \cap A^c) &\text{ [by Axiom 3]}\\
+                    &\geq P(A) + 0 &\text{ [by Axiom 1]}\\
+                    &\geq P(A) &\qed
+                \end{align*}
+                \item $P(A) \leq 1$
+                \\Proof:
+                \begin{align*}
+                    A \sqcup A^c &= S &\text{ [by definition]}\\
+                    P(S) &= P(A) + P(A^c) &\text{ [by Axiom 3]}\\
+                    1 &= P(A) + P(A^c) &\text{ [by Axiom 2]}\\
+                    P(A) &\leq 1 &\qed
+                \end{align*}
+                \item \underline{Union Rule}: $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+                \\Proof:
+                \begin{align*}
+                    A \cup B &= A \sqcup (B \cap A^c) &\text{ [by distribution]}\\
+                    P(A \cup B) &= P(A) + P(B \cap A^c) &\text{ [by Axiom 3]}\\
+                    P(B) &= P(B \cap A) + P(B \cap A^c) &\text{ [by derived property 3]}\\
+                    P(B \cap A^c) &= P(B) - P(B \cap A) &\text{ [by algebra]}\\
+                    P(A \cup B) &= P(A) + P(B) - P(B \cap A) &\qed
+                \end{align*}
+            \end{enumerate}
+        \subsection{Examples}
+            \begin{itemize}
+                \item Example 1
+                \begin{itemize}
+                    \item $P(A) = 0.4$, $P(B) = 0.5$, $P(A \cap B) = 0.1$
+                    \item Determine probability only $A$ occurs:
+                    \\$P(A \cap B^c) = P(A) - P(A \cap B) = 0.4 - 0.1 = 0.3$
+                    \item Determine probability $A$ or $B$ occurs:
+                    \\$P(A \cup B) = P(A) + P(B) - P(A \cap B) = 0.4 + 0.5 - 0.1 = 0.8$
+                    \item Determine probability $A$ xor $B$ occurs:
+                    \\$P(A \cup B) - P(A \cap B) = 0.8 - 0.1 = 0.7$
+                    \\or $P(A \cap B^c) + P(B \cap A^c) = 0.3 + 0.4 = 0.7$
+                    \item Determine probability neither $A$ nor $B$ occurs:
+                    \\$P((A \cup B)^c) = 1 - P(A \cup B) = 1 - 0.8 = 0.2$
+                \end{itemize}
+            \end{itemize}
+    \section{Basic Principle of Probability}
+        \subsection{Definitions}
+            \begin{enumerate}
+                \item \underline{Cardinality}: the number of elements in a set
+            \end{enumerate}
+        \subsection{Symbols}
+            \begin{itemize}
+                \item $|A|$: cardinality of $A$
+            \end{itemize}
+        \subsection{The Principle}
+            If every outcome of S.S. is equally likely, then:
+            \begin{align*}
+                P(A) &= \frac{\text{number of outcomes in } A}{\text{number of outcomes in } S}
+            \end{align*}
+            \\or
+            \begin{align*}
+                P(A) &= \frac{|A|}{|S|}
+            \end{align*}
+        \subsection{Examples}
+            \begin{enumerate}
+                \item Example 1
+                \begin{itemize}
+                    \item for a fair die roll, what is the probability of rolling an even number?
+                    \\$P(A) = \frac{|A|}{|S|} = \frac{3}{6} = \frac{1}{2} = .5$
+                \end{itemize}
+                \item Example 2
+                \begin{itemize}
+                    \item If you roll two fair dice, what is the probability of rolling a sum greater or equal to $9$?
+                    \\$A = \{36, 45, 54, 55, 56, 63, 64, 65, 66\}$
+                    \\$P(A) = \frac{|A|}{|S|} = \frac{10}{36} = \frac{5}{18} \approx .278$
+                \end{itemize}
+            \end{enumerate}
+    \section{Counting and Probability}
+        \subsection{Rules}
+            \begin{enumerate}
+                \item Addition Rule
+                \item Multiple Rule
+            \end{enumerate}
+        \subsection{Examples}
+            \begin{enumerate}
+                \item Example 1
+                \begin{itemize}
+                    \item In a standard deck of cards, what is the probability of drawing a face card or a black ace?
+                    \\$A = \{A\spadesuit, A\clubsuit, A\heartsuit, A\diamondsuit\} + \{J\spadesuit, J\clubsuit, J\heartsuit, J\diamondsuit, Q\spadesuit, Q\clubsuit, Q\heartsuit, Q\diamondsuit, K\spadesuit, K\clubsuit, K\heartsuit, K\diamondsuit\}$
+                    \\$4 * 1$ (multiple rule) aces $+$ (addition rule) $4 * 3$ face cards = $16$ cards
+                    \\$P(A) = \frac{|A|}{|S|} = \frac{16}{52} = \frac{4}{13} \approx .308$
+                \end{itemize}
+            \end{enumerate}
 \end{document}
