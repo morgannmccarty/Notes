@@ -7,6 +7,8 @@
 \usepackage{amsthm}
 % \usepackage{tikz}
 
+% chktex-file 8
+
 \title{
     Probability and Statistics: Lesson 1\\
     Basic Probability}
@@ -56,7 +58,7 @@
     \section{Events}
         \subsection{Definitions}
             \begin{enumerate}
-                \item \underline{Subset}: a set whose elements are all contained in another (super)set, additionally every set is a subset of itself and the empty set is a subset of every set
+                \item \underline{Subset}: a set whose elements are all contained in another (super) set, additionally every set is a subset of itself and the empty set is a subset of every set
                 \item \underline{Event}: a subset of the sample space
     
             \end{enumerate}
@@ -89,7 +91,7 @@
                 \item \underline{Intersection}: $A \cap B = \{x \mid x \in A \text{ and } x \in B\}$
                 \item \underline{Union}: $A \cup B = \{x \mid x \in A \text{ or } x \in B\}$
                 \item \underline{Disjoint}: if $A \cap B = \emptyset$, then $A$ and $B$ are disjoint
-                \item \underline{DeMorgan's Laws}: $(A \cup B)^c = A^c \cap B^c$ and $(A \cap B)^c = A^c \cup B^c$
+                \item \underline{DeMorgan's Laws}: ${(A \cup B)}^c = A^c \cap B^c$ and ${(A \cap B)}^c = A^c \cup B^c$
             \end{enumerate}
         \subsection{Symbols}
             Assume $A, B \subseteq S$
@@ -169,16 +171,16 @@
             \begin{itemize}
                 \item Example 1
                 \begin{itemize}
-                    \item $P(A) = 0.4$, $P(B) = 0.5$, $P(A \cap B) = 0.1$
+                    \item $P(A) = 0.4$, $P (B) = 0.5$, $P (A \cap{} B) = 0.1$
                     \item Determine probability only $A$ occurs:
-                    \\$P(A \cap B^c) = P(A) - P(A \cap B) = 0.4 - 0.1 = 0.3$
+                    \\$P (A \cap{} B^c) = P (A) - P (A \cap{} B) = 0.4 - 0.1 = 0.3$
                     \item Determine probability $A$ or $B$ occurs:
-                    \\$P(A \cup B) = P(A) + P(B) - P(A \cap B) = 0.4 + 0.5 - 0.1 = 0.8$
+                    \\$P (A \cup{} B) = P (A) + P(B) - P(A \cap{} B) = 0.4 + 0.5 - 0.1 = 0.8$
                     \item Determine probability $A$ xor $B$ occurs:
-                    \\$P(A \cup B) - P(A \cap B) = 0.8 - 0.1 = 0.7$
-                    \\or $P(A \cap B^c) + P(B \cap A^c) = 0.3 + 0.4 = 0.7$
+                    \\$P (A \cup{} B) - P (A \cap{} B) = 0.8 - 0.1 = 0.7$
+                    \\or $P (A \cap{} B^c) + P (B \cap{} A^c) = 0.3 + 0.4 = 0.7$
                     \item Determine probability neither $A$ nor $B$ occurs:
-                    \\$P((A \cup B)^c) = 1 - P(A \cup B) = 1 - 0.8 = 0.2$
+                    \\$P ({(A \cup{} B)}^c) = 1 - P (A \cup{} B) = 1 - 0.8 = 0.2$
                 \end{itemize}
             \end{itemize}
     \section{Basic Principle of Probability}
@@ -204,13 +206,13 @@
                 \item Example 1
                 \begin{itemize}
                     \item for a fair die roll, what is the probability of rolling an even number?
-                    \\$P(A) = \frac{|A|}{|S|} = \frac{3}{6} = \frac{1}{2} = .5$
+                    \\$P (A) = \frac{|A|}{|S|} = \frac{3}{6} = \frac{1}{2} = .5$
                 \end{itemize}
                 \item Example 2
                 \begin{itemize}
                     \item If you roll two fair dice, what is the probability of rolling a sum greater or equal to $9$?
                     \\$A = \{36, 45, 54, 55, 56, 63, 64, 65, 66\}$
-                    \\$P(A) = \frac{|A|}{|S|} = \frac{10}{36} = \frac{5}{18} \approx .278$
+                    \\$P (A) = \frac{|A|}{|S|} = \frac{10}{36} = \frac{5}{18} \approx{} .278$
                 \end{itemize}
             \end{enumerate}
     \section{Counting and Probability}

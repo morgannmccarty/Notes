@@ -7,6 +7,8 @@
 \usepackage{amsthm}
 % \usepackage{tikz}
 
+% chktex-file 8
+
 \title{
     Probability and Statistics: Lesson 2
     \\Conditional Probability and Bayes Theorem}
@@ -49,8 +51,9 @@
                     P(A) = \frac{|A|}{|S|}
                 \end{equation}
         \subsection{Counting}
-            There are two main rules of counting, the addition and multiplication rules which are mostly self-explanatory
-    \section{Conditional Probability (of event $A$ given event $B$ [has occurred])}
+            There are two main rules of counting, the addition and multiplication rules which are mostly self-explanatory.
+    \section{Conditional Probability}
+        (of event $A$ given event $B$ [has occurred])
         [$S$ is our Sample Space; $A$ and $B$ are events in $S$]
         \subsection{Basic Notation}
             \begin{equation}
@@ -62,7 +65,7 @@
                 \item Contracted Sample Space: $B$ is the new Sample Space as if $B$ has occurred only events in $B$ are possible
                 \item Product Law: $P(A \cap B) = P(A|B)P(B)$
             \end{enumerate}
-        \subsection{$P(A|B)$ in Prior Terms}
+        \subsection{In Prior Terms}
             \begin{equation}
                 P(A|B) = \frac{P(A \cap B)}{P(B)} = \frac{\frac{|A \cap B|}{|S|}}{\frac{|B|}{|S|}} = \frac{|A \cap B|}{|B|}
             \end{equation}
@@ -139,17 +142,17 @@
                 \item In a standard deck of cards where two cards are drawn sequentially without being revealed:
                 \begin{enumerate}
                     \item What is the probability that the first card is a \textbf{heart}?
-                    \\$P(A) = \frac{13}{52} = \frac{1}{4}$
+                    \\$P (A) = \frac{13}{52} = \frac{1}{4}$
                     \item What is the probability that the second card is a \textbf{heart} given that the first card is a \textbf{heart}?
                     \\$P(B|A) = \frac{12}{51}$
                     \item What is the probability that the second card is a \textbf{heart}?
-                    \\$P(B) = P(A)P(B|A) + P(A^c)P(B|A^c) = \frac{1}{4}\times\frac{12}{51} + \frac{3}{4}\times\frac{13}{51} = \frac{1}{4}$
+                    \\$P (B) = P (A) P (B|A) + P (A^c) P (B|A^c) = \frac{1}{4}\times\frac{12}{51} + \frac{3}{4}\times\frac{13}{51} = \frac{1}{4}$
                     \\``What we don't know doesn't matter'', i.e. if we do not know whether the first card is a \textbf{heart} or not, the probability that the second card is a \textbf{heart} is still $\frac{1}{4}$
                 \end{enumerate}
             \end{enumerate}
     \section{Bayes' Theorem}
         \subsection{What is the Inverted Conditional Probability?}
-            i.e. given $P(B|A)$, what is $P(A|B)$?
+            i.e. given $P (B|A)$, what is $P (A|B)$?
             \begin{align*}
                 P(A|B) &= \frac{P(A \cap B)}{P(B)}\\
                 &= \frac{P(B|A)P(A)}{P(B)}\\
@@ -178,9 +181,9 @@
                 \item If someone is asked whether they smoke and they say they do not, what is the probability they actually do smoke?
                 \\$S$ is the event that the person smokes
                 \\$N$ is the event that the person says they do not smoke
-                \\$P(S) = 0.25$, $P(N|S) = 0.3$, and $P(N|S^c) = 1$
+                \\$P (S) = 0.25$, $P (N|S) = 0.3$, and $P (N|S^c) = 1$
                 \begin{enumerate}
-                    \item We need to find $P(S|N)$
+                    \item We need to find $P (S|N)$
                     \begin{align*}
                         P(S|N) &= \frac{P(S \cap N)}{P(N)}\\
                         &= \frac{P(N|S)P(S)}{P(N)}\\

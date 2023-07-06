@@ -4,7 +4,9 @@
 \usepackage[margin=0.5in]{geometry}
 \usepackage{amsmath}
 
-\title{Machine Learning and Data Mining I: Lecture 1}
+% chktex-file 8
+
+\title{Machine Learning and Data Mining I$\colon$Lecture 1}
 \author{Morgan McCarty}
 \date{03 July 2023}
 
@@ -38,15 +40,15 @@
             \begin{itemize}
                 \item The end goal is prediction
                 \item Most machine-learning models are trained to make predictions
-                \item This can be a simple model that uses a single variable (e.g. location) or a more complex model that uses many variables (e.g. location, time, weather, etc.)
+                \item This can be a simple model that uses a single variable (e.g.\ location) or a more complex model that uses many variables (e.g.\ location, time, weather, etc.)
             \end{itemize}
         \subsection{The Three Main Approaches}
             \begin{itemize}
-                \item Classification (e.g. spam or not spam) [SVM, nearest neighbors, etc]
+                \item Classification (e.g.\ spam or not spam) [SVM, nearest neighbors, etc]
                 \\Identify which category an object belongs to
-                \item Regression (e.g. price of a house) [linear regression, random forest, SVR, etc]
+                \item Regression (e.g.\ price of a house) [linear regression, random forest, SVR, etc]
                 \\Predicting a continuous-valued attribute associated with an object
-                \item Clustering (e.g. customer segmentation) [k-means, spectral clustering, a-priori, etc]
+                \item Clustering (e.g.\ customer segmentation) [k-means, spectral clustering, a-priori, etc]
                 \\Automatic grouping of similar objects into sets
             \end{itemize}
         \subsection{Types of Machine Learning}
@@ -56,7 +58,7 @@
                 \item \textbf{Unsupervised Learning}
                 \\The model arrives at conclusions and determines patters through unlabeled data
                 \item Semi-Supervised Learning
-                \\The model is built with a mix of labeled and unlabeled data - e.g. sets of categories, suggestions, and example labels
+                \\The model is built with a mix of labeled and unlabeled data - e.g.\ sets of categories, suggestions, and example labels
                 \item Reinforcement Learning
                 \\A system is used to cause the model to learn through trial and error using rewards and punishments
             \end{itemize}
@@ -115,18 +117,18 @@
                     \item $\beta_p$ is the slope
                     \item $\epsilon_i$ is the error term (aka the residual)
                 \end{itemize}
-                \item e.g. for house prices:
+                \item e.g.\ for house prices:
                 \begin{itemize}
                     \item $y_i$ is the price of the house
                     \item $x_i^1$ is the size of the house
                     \item $x_i^2$ is the number of rooms
                     \item $x_i^3$ is the zip-code
                 \end{itemize}
-                \item The goal is to find the best fit line (i.e. the line that minimizes the sum of the squared errors) to predict future values
+                \item The goal is to find the best fit line (i.e\ the line that minimizes the sum of the squared errors) to predict future values
             \end{itemize}
         \subsection{Classification}
             \begin{itemize}
-                \item Input new data with a set of categories(e.g. a 2D dataset with shapes)
+                \item Input new data with a set of categories (e.g.\ a 2D dataset with shapes)
                 \item Pass through a classifier to determine which category the data belongs to
                 \item Output the type of the datapoint
                 \item e.g. Orchids (Iris Dataset)
@@ -142,7 +144,7 @@
             \begin{itemize}
                 \item Input new data with no set of categories, but that has some type of grouping
                 \item Pass through a clustering algorithm to determine which group the data belongs to
-                \item e.g. anomaly detection
+                \item e.g.\ anomaly detection
                 \item Uses a distance or simularity metric to determine which group the data belongs to
                 \item Outputs labels for the data that were not predefined
             \end{itemize}
