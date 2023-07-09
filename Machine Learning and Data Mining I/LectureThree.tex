@@ -1,0 +1,179 @@
+\documentclass[12pt]{article}
+
+\usepackage{hyperref}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[fleqn]{amsmath}
+\usepackage{listings}
+
+\DeclareMathOperator*{\argmin}{argmin}
+
+\title{
+    Machine Learning and Data Mining I:\ Lecture 3\\
+    Polynomial Regression and Regularization}
+\author{Morgan McCarty}
+\date{06 July 2023}
+
+\begin{document}
+    \maketitle
+
+    \section{Polynomial Regression}
+        \subsection{Linear Regression Review}
+            \begin{itemize}
+                \item Estimate the parameters of a regression function:
+                \item $\hat{y}_i = w_0 + \Sigma_{j=1}^N {w_j}x_{ij}$ where:
+                \begin{itemize}
+                    \item $w = {({X^T}X)}^{-1}{X^T}y$ where:
+                    \begin{itemize}
+                        \item $w$ is the vector of weights
+                        \item $X$ is the matrix of features
+                        \item $y$ is the vector of observations
+                    \end{itemize}
+                    \item $y_i$ is the $i$th observation (of the vector of observations)
+                    \item $x_{ij}$ is the $j$th feature of the $i$th observation
+                    \item $N$ is the number of features
+                \end{itemize}
+                \item We find the solution by minimizing the squared error on the training data.
+                \item We want the model to \underline{generalize} to new data (i.e.\ have low error on unseen [test] data).
+                \item The parametric form of the regression function:
+                \begin{itemize}
+                    \item Linear in parameters
+                    \item Can transform input features
+                    \item Do we learn a straight line? Polynomial?
+                \end{itemize}
+            \end{itemize}
+        \subsection{Polynomial Regression}
+            \begin{itemize}
+                \item Transform the input features to higher order polynomials.
+                \item i.e.\ $f_w(x) = w_0 + w_1x + w_2x^2 + w_3x^3 + \cdots + {w_m}x^m$
+                \item Here $m$ is the degree of the polynomial (the highest power of $x$).
+                \item We can choose $m$, it is a hyperparameter.
+                \item Does our optimization problem change? No, we can still use the same linear regression model, but we have to transform the input features.
+                \item Our previous design matrix $X$ was:
+                \begin{equation}
+                    X = \begin{bmatrix}
+                        1 & x_{11} & x_{12} & \cdots & x_{1p} \\
+                        1 & x_{21} & x_{22} & \cdots & x_{2p} \\
+                        \vdots & \vdots & \vdots & \ddots & \vdots \\
+                        1 & x_{N1} & x_{N2} & \cdots & x_{Np}
+                    \end{bmatrix}
+                \end{equation}
+                \item Where $N$ is the number of observations and $p$ is the number of features.
+                \item All terms are linear in the parameters (i.e.\ $w_0, w_1, \ldots, w_N$ i.e.\ of order $1$).
+                \item We can transform the input features to higher order polynomials:
+                \begin{equation}
+                    X = \begin{bmatrix}
+                        1 & x_{11} & x_{11}^2 & \cdots & x_{11}^m \\
+                        1 & x_{21} & x_{21}^2 & \cdots & x_{21}^m \\
+                        \vdots & \vdots & \vdots & \ddots & \vdots \\
+                        1 & x_{N1} & x_{N1}^2 & \cdots & x_{N1}^m
+                    \end{bmatrix}
+                \end{equation}
+                \item Where $m$ is the degree of the polynomial and $N$ is the number of observations.
+                \item The weight vector $w$ was previously:
+                \begin{equation}
+                    w = \begin{bmatrix}
+                        w_0 \\
+                        w_1 \\
+                        \vdots \\
+                        w_p
+                    \end{bmatrix}
+                \end{equation}
+                \item Now it is:
+                \begin{equation}
+                    w = \begin{bmatrix}
+                        w_0 \\
+                        w_1 \\
+                        \vdots \\
+                        w_m
+                    \end{bmatrix}
+                \end{equation}
+                \item The difference is that we have more features, but they are all linear in the parameters. That is that the parameters are still of order $1$ so we can still use linear regression.
+                \item The observation vector $y$ remains the same:
+                \begin{equation}
+                    y = \begin{bmatrix}
+                        y_1 \\
+                        y_2 \\
+                        \vdots \\
+                        y_N
+                    \end{bmatrix}
+                \end{equation}
+                \item We can still use the same linear regression model:
+                \item We will minimize the mean squared error:
+                \begin{equation}
+                    \argmin_w \frac{1}{N} \Sigma_{i=1}^N {(y_i - f_w(x_i))}^2
+                \end{equation}
+            \end{itemize}
+        \subsubsection{An Example}
+            We have a training dataset sampled from the unit interval $[0, 1]$ with a target function $f(x) = 7.5\sin(2.5\pi{}x)$ 
+            and gaussian noise $\epsilon_i \sim \mathcal{N}(0, \sigma^2)$.
+            \begin{equation}
+                y_i = f(x_i) + \epsilon_i
+            \end{equation}
+            The training dataset has $N$ observations. $(x_i, y_i)$ for $i = 1, \ldots, N$.
+            \begin{enumerate}
+                \item If we use Polynomial Regression with $m = 1$ (i.e.\ a straight line) the model fails to capture the underlying function. \\
+                It has a massive training error and underfits the data. Meaning that the model is too simple to capture the underlying function.
+                \item If we use Polynomial Regression with $m = 6$ (i.e.\ a polynomial of degree $6$) the model captures underlying function and the noise in the data. \\
+                It has a negligible training error and overfits the data. Meaning that the model is too complex and fits to the noise, not just the function.
+                \item If we use Polynomial Regression with $m = 3$ (i.e.\ a polynomial of degree $3$) the model captures underlying function without fitting to the noise in the data. \\
+                It has a small training error and generalizes well to unseen data.
+            \end{enumerate}
+        \subsection{Overfitting}
+            \begin{itemize}
+                \item The model learns idiosyncrasies (noise) in the training data resulting in poor generalization.
+                \item When does this happen?
+                \begin{itemize}
+                    \item There are more model parameters than training data points.
+                    \item Model is too complex and fits to the noise in the training data.
+                    \item E.g.\ a degree $N$ polynomial exactly fits $N+1$ data points.
+                \end{itemize}
+            \end{itemize}
+        \subsection{Avoiding Overfitting}
+            \begin{itemize}
+                \item More training data: always works, but is not always possible in practice.
+                \item Cross Validation: split the training data into a training set and a test set. Train the model on the training set and evaluate it on the test set.
+                \item Regularization: Mathematical framework for controlling the complexity of the model.
+            \end{itemize}
+    \section{Regularization}
+        \subsection{Ex. Polynomial Regression}
+            More complex models (i.e.\ higher order or with larger $m$) lead to larger magnitude of model parameters.
+            Slight perturbations in input features lead to large changes in the output.
+            We can avoid overfitting by discouraging large model parameter values.
+        \subsection{Occam's Razor}
+            ``Among competing hypotheses, the one with the fewest assumptions should be selected.'' \\
+            In order to avoid overfitting, we should choose the simplest model that fits the data.
+        \subsection{Regularized Linear Regression}
+            \begin{itemize}
+                \item Our original loss function:
+                \begin{equation}
+                    E(w) = \frac{1}{2} \Sigma_{i=1}^N {(y_i - {w^T}x_i)}^2
+                \end{equation}
+                \item Where $x_i$ is the $i$th observation and $y_i$ is the $i$th target value.
+                \item We can penalize the weights to augment the error function (i.e.\ add a penalty/regularization term):
+                \begin{equation}
+                    E^{ridge}(w) = \frac{1}{2} \Sigma_{i=1}^N {(y_i - {w^T}x_i)}^2 + \frac{\lambda}{2} ||w||^2, \lambda \geq 0
+                \end{equation}
+                \item $||w||^2$ is the squared Euclidean norm (L2 norm) of the weight vector.
+                \item E.g.\ for weight vector $w$:
+                \begin{equation}
+                    w = \begin{bmatrix}
+                        w_0 \\
+                        w_1 \\
+                        \vdots \\
+                        w_m
+                    \end{bmatrix}
+                \end{equation}
+                \begin{equation}
+                    ||w||^2 = w_0^2 + w_1^2 + \cdots + w_m^2
+                \end{equation}
+                \item $\lambda$ is the regularization parameter. It controls the strength of the regularization.
+                \item $\lambda = 0$ is equivalent to the original loss function.
+                \item $\lambda \rightarrow \infty$ is equivalent to setting all weights to $0$.
+                \item We can also use the L1 norm:
+                \begin{equation}
+                    ||w||_1 = |w_0| + |w_1| + \cdots + |w_m|
+                \end{equation}
+                \item This is called Lasso Regression. Other norms can be used as well.
+                \item This would require swapping the L2 norm for the L1 norm in the loss function.
+            \end{itemize}
+\end{document}
