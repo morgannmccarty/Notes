@@ -173,7 +173,94 @@
                 \begin{equation}
                     ||w||_1 = |w_0| + |w_1| + \cdots + |w_m|
                 \end{equation}
-                \item This is called Lasso Regression. Other norms can be used as well.
+                \item This is called Lasso Regression. Other norms are possible.
                 \item This would require swapping the L2 norm for the L1 norm in the loss function.
+                \item The current model of Regularized Linear Regression is also called Ridge Regression.
+                \item It is important to note that the regularization term is only applied to the weights, not the bias term. This is because the bias term is not a function of the input features.
+                \item As such the weight vector has $m + 1$ elements, but the regularization term only has $m$ elements.
+                \item The training error will increase with the regularization parameter $\lambda$. This is because the model is penalized for having large weights.
+            \end{itemize}
+        \subsection{Gradient Descent with L2 Regularization}
+            \begin{itemize}
+                \item Once again we will use gradient descent to minimize the loss function.
+                \item We will update the weights in two steps.
+                \item First we update the intercept/bias term:
+                \begin{equation}
+                    w_0^{i+1} = w_0^i - \eta \Sigma_{j=1}^N (w_0^i + w^{iT}x_j-y_j)
+                \end{equation}
+                \item Notice how the regularization term is not included in the update rule for the bias term.
+                \item Next we update the weights:
+                \begin{equation}
+                    w^{i+1} = w^i - \eta [ \Sigma_{j=1}^N (w_0^i + w^{iT}x_j-y_j)(x_j) + \lambda w^i ] \\
+                    w^{i+1} = (1 - \eta \lambda) w^i - \eta \Sigma_{j=1}^N (w_0^i + w^{iT}x_j-y_j)(x_j) \text{, where } \lambda \geq 0
+                \end{equation}
+                \item The regularization term is included for the rest of the weights.
+                \item The second equation corresponds to ``weight decay.'' i.e.\ each weight is decayed by a factor of $(1 - \eta \lambda)$.
+                \item ``Weight decay'' is a common term for regularization in neural networks. It is used because it is equivalent to L2 regularization. Both equations are not necessary to use together (i.e.\ you can use one or the other).
+                \item As mentioned before, there are other norms that can be used for regularization.
+                \item From a technical viewpoint: $\lambda$ is a rank conditioner for the data covarience matrix, which helps make sure that the matrix is invertible.
+            \end{itemize}
+    \subsection{Hyperparamter Learning}
+        \subsection{Connection to What We've Learned}
+            \begin{itemize}
+                \item So far we have seen two hyperparameters:
+                \begin{enumerate}
+                    \item Learning Rate:\ $\eta$
+                    \item Regularization Parameter:\ $\lambda$
+                \end{enumerate}
+                \item There are several ways to choose these hyperparameters:
+                \begin{enumerate}
+                    \item Grid Search
+                    \item Random Search
+                    \item Genetic Algorithms
+                    \item Cross Validation
+                \end{enumerate}
+                \item These methods each have their own advantages and disadvantages.
+            \end{itemize}
+        \subsection{Methods}
+            \begin{enumerate}
+                \item Grid Search
+                \begin{itemize}
+                    \item Define a search space: i.e.\ a range of values for all hyperparameters of the model.
+                    \item For Ridge Regression we have two hyperparameters: $\eta$ and $\lambda$.
+                    \item We can set a range of values in $[0, 1]$ for our parameters and evenly divide the range into $100$ grid points.
+                    \item At each value in the grid we train the model and estimate the performance metric (e.g.\ MSE, MAE, etc.).
+                    \item Once we have evaluated the model at all grid points we choose the model with the best performance.
+                    \item With many hyperparameters and a large range of values, this method can be very computationally expensive and time consuming. It may not be feasible to evaluate all grid points.
+                \end{itemize}
+                \item Random Search
+                \begin{itemize}
+                    \item Define a search space: i.e.\ a range of values for all hyperparameters of the model.
+                    \item This functions similar to Grid Search, but instead of evaluating all grid points we randomly sample from the search space.
+                    \item This is less computationally expensive than Grid Search, but it is unlikely to find the optimal hyperparameters.
+                    \item It is possible to combine Grid Search and Random Search.
+                    \item We can use Random Search to find a region of the search space that contains the optimal hyperparameters.
+                    \item Then we can use Grid Search to find the optimal hyperparameters within that region.
+                \end{itemize}
+                \item Genetic Algorithms
+                \begin{enumerate}
+                    \item Define a search space: i.e.\ a range of values for all hyperparameters of the model.
+                    \item This is similar to Random Search, but instead of randomly sampling from the search space we use a genetic algorithm to find the optimal hyperparameters.
+                    \item This is less computationally expensive than Grid Search, but if the search space is large it will only approach the optimal hyperparameters.
+                    \item It is possible to combine Grid Search and Genetic Algorithms (similar to Random Search).
+                \end{enumerate}
+                \item Cross Validation
+                \begin{enumerate}
+                    \item This is the most common method for choosing hyperparameters.
+                    \item We will take our training data and split it into $k$ folds (a \underline{fold} is a subset of the training data).
+                    \item $k$ is also a hyperparameter, but it is not the same as the hyperparameters of the model. Usually $k = 5$ or $k = 10$.
+                    \item We will train the model on $k - 1$ folds and evaluate it on the remaining fold.
+                    \item We will repeat this process $k$ times, each time using a different fold as the test set.
+                    \item We will then average the performance metric (e.g.\ MSE, MAE, etc.) over the $k$ folds.
+                    \item This is done at each point in the search space, so it is computationally expensive, but it is the most accurate method for choosing hyperparameters.
+                    \item It is important to ensure that there is no ``leakage'' between the training and test sets as this will result in an overly optimistic performance metric (i.e.\ the model will overfit the data).
+                    \item Over all the folds we will have $k$ performance metrics and then we will average them.
+                \end{enumerate}
+            \end{enumerate}
+        \subsection{Final Notes}
+            \begin{itemize}
+                \item It is useful to standardize and normalize the input features before training the model.
+                \item We can standardize the input features by subtracting the mean and dividing by the standard deviation.
+                \item We can normalize the input features by subtracting the minimum and dividing by the range.
             \end{itemize}
 \end{document}
