@@ -1,0 +1,137 @@
+\documentclass[12pt]{article}
+
+\usepackage{hyperref}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[fleqn]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+% \usepackage{tikz}
+
+% chktex-file 8
+
+\title{
+    Probability and Statistics:\\
+    Homework 1, Lesson 1 and 2 Continued}
+\author{Morgan McCarty}
+\date{06 July 2023}
+
+\begin{document}
+    \maketitle
+
+    \section{Homework 1 Notes}
+        \begin{itemize}
+            \item Problem 1
+            \begin{itemize}
+                \item Gambler makes four bets:
+                \item Chance of success:
+                \begin{itemize}
+                    \item $1$st$: A:\ P = 0.7$
+                    \item $2$nd$: B:\ P = 0.4$
+                \end{itemize}
+                \item Chance at least one fails:
+                \begin{itemize}
+                    \item $A^c \cup B^c:\ P = 0.75$
+                \end{itemize}
+                \item What is the probability that at least one of her bets is successful? $P(A \cup B)$
+                \item Need to find:\ $A \cap B$ in order to know $P(A \cup B)$
+            \end{itemize}
+            \item Problem 2
+            \begin{itemize}
+                \item $P(A) = 0.2, P(B) = 0.4, P(A|B) + P(B|A) = 0.75$
+                \item Find $P(A \cap B)$
+                \item Given that $B$ occurs, what is the probability that $A$ occurs? $P(A|B)$
+                \item Given that $B$ occurs, what is the probability that $A$ does not occur? $P(A^c|B)$
+                \begin{align*}
+                    P(A|B) + P(B|A) = 0.75\\
+                    \frac{P(A \cap B)}{P(B)} + \frac{P(A \cap B)}{P(A)} = 0.75\\
+                \end{align*}
+            \end{itemize}
+            \item Problem 3
+            \begin{itemize}
+                \item Pick a number in $[1, 100]$
+                \item If in $[21, 44]$ answer $Q_1$ (Do you text while driving?) else, answer $Q_2$ (Is the month of your birthday even?).
+                \item $37.5\%$ of all responses are ``Yes.''
+                \item What is the percentage of drivers who answer ``Yes'' to $Q_1$? $P(Y|T)$
+                \item $T$ is the event that they answer $Q_1$.
+                \item $Y$ is the event that they answer ``Yes.''
+                \begin{align*}
+                    P(Y) &= 0.375\\
+                    &= P(Y|T)P(T) + P(Y|T^c)P(T^c)\\
+                    &= P(T \cap Y) + P(T^c \cap Y)\\
+                \end{align*}
+            \end{itemize}
+            \item Problem 4
+            \begin{itemize}
+                \item Coin equally likely to be in $5$ boxes - if in box and you look in box, $0.8$ chance to see coin, $0.2$ chance to not see coin.
+                \item If you look inside the first box, and do not see the coin, what is the probability that the coin is in the second box?
+                \item $P(\text{``}2\text{''} | \text{didn't find in first box})$
+                \item $B$ is the event that the coin is found in the first box
+                \item $P(\text{``}2\text{''} | B^c) = \frac{P(\text{``}2\text{''} \cap B^c)}{P(B^c)}$
+            \end{itemize}
+            \item Problem 5
+            \begin{itemize}
+                \item With a pair of fair six-sided dice rolled until a sum of $8$ is obtained, what is the probability that a sum of $7$ is not obtained before an $8$?
+                \item $(\text{no } 7 \text{ before } 8) = \{8,\ x8,\ xx8,\ \dots\}$ where $x$ is not a sum of $7$ or $8$
+                \item $S = \{8,\ x8,\ xx8,\ \dots\}$ where $x$ is not a sum of $8$
+                \item $P(\text{``}8{''}) = \frac{5}{36}$
+                \item $P(\text{``}7{''}) = \frac{6}{36}$
+                \item $P(\text{``}7{''}^c \cap \text{``}8{''}^c) = 1 - P(\text{``}7{''} \cup \text{``}8{''}) = \frac{25}{36} = p$
+                \item $P(\text{no } 7 \text{ before } 8) = \frac{5}{36} + \frac{5}{36}p + \frac{5}{36}p^2 + \dots$
+            \end{itemize}
+        \end{itemize}
+        \section{Lesson 1 Cont.}
+            \subsection{Counting}
+                \subsection{Definitions}
+                    \begin{enumerate}
+                        \item Factorial: $n! = n \times (n - 1) \times (n - 2) \times \cdots \times 2 \times 1$
+                        \item Permutation: $nPr = \frac{n!}{(n - r)!}$
+                    \end{enumerate}
+                \subsubsection{Examples}
+                    \begin{itemize}
+                        \item Cards
+                        \begin{itemize}
+                            \item $P(\text{black or ace}) = P(B \cup A) = P(B) + P(A) - P(B \cap A)$
+                            \item $P(\text{black or ace}) = \frac{26 + 4 - 2}{52} = \frac{28}{52}$
+                        \end{itemize}
+                        \item 3 Fair dice
+                        \begin{itemize}
+                            \item $P(\text{all }5\text{ or }6) = \frac{2 \times 2 \times 2}{6 \times 6 \times 6} = \frac{8}{216}$
+                        \end{itemize}
+                        \item Probilility that all kids sit together when $3$ kids and $2$ parents are arranged randomly in a row of $5$ seats?
+                        \begin{itemize}
+                            \item $P(\text{all kids together}) = \frac{3! \times 3!}{5!} = \frac{6}{120} = \frac{1}{20}$
+                        \end{itemize}
+                        \item In a room of $25$ people, what is the probability that at least two people have the same birthday?
+                        \begin{itemize}
+                            \item $P(\text{at least two people have the same birthday}) = 1 - P(\text{all birthdays are different})$
+                            \item $P(\text{all birthdays are different}) = \frac{365 \times 364 \times \cdots \times 341}{365^{25}}$
+                            \item $P(\text{at least two people have the same birthday}) = 1 - \frac{365 \times 364 \times \cdots \times 341}{365^{25}}$
+                            \item $P(\text{at least two people have the same birthday}) = 1 - \frac{365P25}{365^{25}} \approx 0.43$
+                        \end{itemize}
+                    \end{itemize}
+        \section{Lesson 2 Cont.}
+            \subsection{Definitions}
+                \begin{enumerate}
+                    \item Independent Events:\ for events $A$ and $B$, $A$ and $B$ are independent if $P(A|B) = P(A)$ \\
+                    $\therefore P(A \cap B) = P(A)P(B)$
+                \end{enumerate}
+            \subsection{Examples}
+                \begin{enumerate}
+                    \item $A$ and $B$ are independent events. $P(A) = 0.3, P(B) = 0.8$. Find $P(A \cup B)$
+                    \begin{align*}
+                        P(A \cup B) &= P(A) + P(B) - P(A \cap B)\\
+                        &= P(A) + P(B) - P(A)P(B)\\
+                        &= 0.3 + 0.8 - 0.3 \times 0.8\\
+                        &= 0.3 + 0.8 - 0.24\\
+                        &= 0.86
+                    \end{align*}
+                    \item A lightbulb has a 2\% chance of failure, independently of other lightbulbs. What is the probability a chain of $15$ lightbulbs will work?
+                    \begin{align*}
+                        P(\text{all }15\text{ lightbulbs work}) &= P{(\text{lightbulb works})}^{15}\\
+                        &= {(1 - 0.02)}^{15}\\
+                        &= 0.98^{15}\\
+                        &\approx 0.74
+                    \end{align*}
+                \end{enumerate}
+\end{document}
