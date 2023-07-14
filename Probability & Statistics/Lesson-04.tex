@@ -1,0 +1,117 @@
+\documentclass[12pt]{article}
+
+\usepackage{hyperref}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[fleqn]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+% \usepackage{tikz}
+
+% chktex-file 8
+% chktex-file 44
+
+\title{
+    Probability and Statistics:\ Lesson 4
+    \\Continuous Random Variables}
+\author{Morgan McCarty}
+\date{11 July 2023}
+
+\begin{document}
+    \maketitle
+
+    \section{Lesson 3 Addendum:\ Discrete Random Variables}
+        \subsection{Definitions}
+            \begin{itemize}
+                \item \underline{Binomial Distribution}: $X \sim Binomial(n, p) = X_1 + X_2 + \cdots + X_n$ where $X_i \sim Bernoulli(p)$.
+            \end{itemize}
+        \subsection{Examples}
+            \begin{enumerate}
+                \item Flip a coin $n$ times
+                \begin{itemize}
+                    \item $X$ is the number of heads
+                    \item $Ran(X) = \{0, 1, 2, \ldots, n\}$
+                    \item pdf:
+                    \begin{align*}
+                        p_X(k) &= P(X = k) \\
+                        p_X(0) &= (1-p^n) \\
+                        p_X(1) &= \binom{n}{1} p^1 {(1-p)}^{n-1} \\
+                        p_X(2) &= \binom{n}{2} p^2 {(1-p)}^{n-2} \\
+                        p_X(k) &= \binom{n}{k} p^k {(1-p)}^{n-k}
+                    \end{align*}
+                    \item cdf:
+                    \begin{align*}
+                        F_X(k) &= P(X \leq k) \\
+                        F_X(0) &= P(X = 0) = {(1-p)}^n \\
+                        F_X(1) &= P(X \leq 1) = {(1-p)}^n + \binom{n}{1} p^1 {(1-p)}^{n-1} \\
+                        F_X(2) &= P(X \leq 2) = {(1-p)}^n + \binom{n}{1} p^1 {(1-p)}^{n-1} + \binom{n}{2} p^2 {(1-p)}^{n-2} \\
+                        F_X(k) &= \sum_{i=0}^{k} \binom{n}{i} p^i {(1-p)}^{n-i}
+                    \end{align*}
+                    \item Expected Value:
+                    \begin{align*}
+                        E[X] &= \mu = \sum_{x} x \cdot p_X(x) \\
+                    \end{align*} 
+                    \item Variance:
+                    \begin{align*}
+                        Var(X) &= \Sigma_{x} {(x - \mu)}^2 \cdot p_X(x) \\
+                        &= E(x^2) - \mu^2 \\
+                    \end{align*}
+                \end{itemize}
+            \end{enumerate}
+    \section{Continuous Random Variables}
+        \subsection{Definitions}
+            \begin{itemize}
+                \item \underline{Continuous Random Variable}: a random variable that can take on any value in an interval of the real numbers.
+                \item \underline{Range of a Continuous Random Variable}: the set of all possible values of $X$. $Ran(X) = \{x \in \mathbb{R} | p_X(x) > 0\}$. A union of continuous intervals.
+                \item \underline{Probability Density Function}: $f_X(x)$ is a function such that $f_X(x) \geq 0$ and $\int_{-\infty}^{\infty} f_X(x) dx = 1$.
+                \item $\int_a^b f_X(x) dx = P(a \leq X \leq b)$: area under the curve between $a$ and $b$.
+            \end{itemize}
+        \subsection{Uniform Distribution}
+            \begin{itemize}
+                \item \underline{Uniform Distribution}: $X \sim Uniform(a, b)$ where $a < b$.
+                \item $Ran(X) = (a, b)$
+                \item pdf:
+                \begin{align*}
+                    f_X(x) &= c \\
+                    \int_a^b f_X(x) dx &= 1 \\
+                    \int_a^b c dx &= 1 \\
+                    c(b-a) &= 1 \\
+                    c &= \frac{1}{b-a} \\
+                    f_X(x) &= \frac{1}{b-a}
+                \end{align*}
+                \item cdf:
+                \begin{align*}
+                    F_X(x) &= P(X \leq x) \\
+                    &= \int_{-\infty}^{x} f_X(t) dt \\
+                    &= \int_{a}^{x} \frac{1}{b-a} dt \\
+                    &= \frac{t}{b-a} \Big|_{a}^{x} \\
+                    &= \frac{x-a}{b-a}
+                \end{align*}
+                \item Expected Value:
+                \begin{align*}
+                    E[X] &= \int_{-\infty}^{\infty} x \cdot f_X(x) dx \\
+                    &= \int_{a}^{b} x \cdot \frac{1}{b-a} dx \\
+                    &= \frac{x^2}{2(b-a)} \Big|_{a}^{b} \\
+                    &= \frac{b^2 - a^2}{2(b-a)} \\
+                    &= \frac{b+a}{2}
+                \end{align*}
+                \item Variance:
+                \begin{align*}
+                    Var(X) &= E(X^2) - \mu^2 \\
+                    &= \int_{-\infty}^{\infty} x^2 \cdot f_X(x) dx - \mu^2 \\
+                    &= \int_{a}^{b} x^2 \cdot \frac{1}{b-a} dx - \mu^2 \\
+                    &= \frac{x^3}{3(b-a)} \Big|_{a}^{b} - \mu^2 \\
+                    &= \frac{b^3 - a^3}{3(b-a)} - \mu^2 \\
+                    &= \frac{b^2 + ab + a^2}{3} - \mu^2 \\
+                    &= \frac{b^2 + 2ab + a^2 - 3\mu^2}{3} \\
+                    &= \frac{b^2 + 2ab + a^2 - 3\frac{{(b+a)}^2}{4}}{3} \\
+                    &= \frac{4b^2 + 8ab + 4a^2 - 3b^2 - 6ab - 3a^2}{12} \\
+                    &= \frac{b^2 - 2ab + a^2}{12} \\
+                    &= \frac{{(b-a)}^2}{12} 
+                \end{align*}
+            \end{itemize}
+        \subsection{Exponential Distributon}
+            \begin{itemize}
+                \item \underline{Exponential Distribution}: $X \sim Exponential(\lambda)$ where $\lambda > 0$.
+                \item $Ran(X) = (0, \infty)$
+            \end{itemize}
+\end{document}
