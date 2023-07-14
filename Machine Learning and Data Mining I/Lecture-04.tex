@@ -1,0 +1,240 @@
+\documentclass[12pt]{article}
+
+\usepackage{hyperref}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[fleqn]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{listings}
+
+\DeclareMathOperator*{\argmin}{argmin}
+
+% chktex-file 44
+
+\title{
+    Machine Learning and Data Mining I:\ Lecture 4\\
+    Linear Classification:\ Perceptron}
+\author{Morgan McCarty}
+\date{10 July 2023}
+
+\begin{document}
+    \maketitle
+
+    \section{Classification}
+        Predict a discrete label rather than a continuous value.
+        \subsection{Artificial Neural Network}
+            \begin{itemize}
+                \item Also know as: Connectionist Model, Adaptive Network
+                \item Inspired by human brain
+                \begin{itemize}
+                    \item Composed of billions of neurons
+                    \item Fast processing of complex tasks
+                    \item Parallel computations
+                \end{itemize}
+                \item Started with Autonomous Land Vehicle (ALVINN) in 1990s.
+                \item \underline{Deep Learning}:
+                \begin{itemize}
+                    \item ANNs and varients
+                    \item State of the art for speach recognition
+                    \item Convoluted Neural Networks (CNNs) for image recognition (pattern recognition)
+                \end{itemize}
+                \item Tasks:
+                \begin{itemize}
+                    \item Continuous input features
+                    \item Form of tangent function is unknown
+                \end{itemize}
+                \item Drawbacks:
+                \begin{itemize}
+                    \item Very hard to understand/complex
+                    \item Mostly treated as black box
+                \end{itemize}
+            \end{itemize}
+        \subsection{Perceptron}
+            \begin{itemize}
+                \item Based on structure of neuron: connect to others using synaspses, synaspses have varying strength (exciting $+$ or inhibiting $-$)
+            \end{itemize}
+        \subsection{Binary Linear Classification}
+            \begin{itemize}
+                \item Linearly separable Data
+                \item Boundary s linear function of input features (line, plane, hyperplane, etc)
+                \item Input: $x \in \mathbb{R}^m$
+                \item Output: $y \in \{-1, 1\}$
+            \end{itemize}
+        \subsection{Percepton Classification Rule}
+            \begin{align*}
+                w_1{x_1} + w_2{x_2} + \cdots + w_m{x_m} \ge \theta \rightarrow y &= 1 \\
+                \text{else: } y &= -1
+            \end{align*}
+            \begin{itemize}
+                \item $w_i$ is the weight of the $i$th feature
+                \item $x_i$ is the $i$th feature
+                \item $\theta$ is the threshold (bias)
+            \end{itemize}
+        \subsection{Learning Rate} 
+            \begin{itemize}
+                \item Learn the $m+1$ parameters: $w_1, w_2, \ldots, w_m, \theta$
+                \item Absorb the threshold into the weight vector: $w_0 = -\theta$ (an extra feature)
+                \begin{align*}
+                    f(x) &= w_0{x_0} + w_1{x_1} + w_2{x_2} + \cdots + w_m{x_m} \\
+                    \text{where } x_0 &= 1 \\
+                    \text{and } w_0 &= -\theta
+                \end{align*}
+            \end{itemize}
+        \subsection{Algorithm}
+            \begin{itemize}
+                \item Data:\ Training Data = $\{x_i, y_i:\ \forall i = 1, 2, \ldots, n\}$
+                \item Learning Rate:\ $\eta$
+                \item Result:\ Coefficients of the hyperplane ($w_0, w_1, w_2, \ldots, w_m$)
+                \item Algorithm:
+                \begin{itemize}
+                    \item Initialize $w_0, w_1, w_2, \ldots, w_m$ to $0$
+                    \item Repeat until convergence:
+                    \begin{itemize}
+                        \item For each $(x_i, y_i)$ in training data:
+                        \begin{itemize}
+                            \item Compute $\hat{y}_i = w^T{x_i}$
+                            \item If $\hat{y}_i{y_i} \le 0$ then update $w$:
+                            \begin{align*}
+                                w &= w + \eta{y_i}{x_i} \\
+                            \end{align*}
+                            \item Repeat until $\hat{y}_i{y_i} > 0$ for all $(x_i, y_i)$
+                        \end{itemize}
+                    \end{itemize}
+                \end{itemize}
+            \end{itemize}
+        \subsection{Perceptron Learning Example}
+            Learning the boolean $AND$ function:
+            \begin{itemize}
+                \item We have a data table: \\
+                \begin{tabular}{|c|c|c|c|}
+                    \hline
+                    $x_0$ & $x_1$ & $x_2$ & $AND(x_1, x_2)$ \\
+                    \hline
+                    $1$ & $0$ & $0$ & $0$ \\
+                    \hline
+                    $1$ & $0$ & $1$ & $0$ \\
+                    \hline
+                    $1$ & $1$ & $0$ & $0$ \\
+                    \hline
+                    $1$ & $1$ & $1$ & $1$ \\
+                    \hline
+                \end{tabular}
+                \item We want to learn the weights $w_0, w_1, w_2$ such that $w_0 + w_1{x_1} + w_2{x_2} \ge 0$ if $x_1 = 1$ and $x_2 = 1$.
+                \item Initialize $w_0, w_1, w_2$ to $0$.
+                \item Set $\eta$ to $1$
+                \begin{itemize}
+                    \item For each $(x_i, y_i)$ in training data:
+                    \begin{itemize}
+                        \item Compute $\hat{y}_i = w^T{x_i}$
+                        \item If $\hat{y}_i{y_i} \le 0$ then update $w$:
+                        \begin{align*}
+                            w &= w + \eta{y_i}{x_i}
+                        \end{align*}
+                        \item Repeat until $\hat{y}_i{y_i} > 0$ for all $(x_i, y_i)$
+                    \end{itemize}
+                \end{itemize}
+                \item Let's go through the algorithm step by step for one epoch:
+                \item The first data point is $(1, 0, 0, 0)$
+                \begin{itemize}
+                    \item $\hat{y}_1 = w_0 + w_1{x_1} + w_2{x_2} = 0$
+                    \item $\hat{y}_1{y_1} = 0 \le 0$
+                    \item $w = w + \eta{y_i}{x_i} = (0, 0, 0) + 1(0, 0, 0) = (0, 0, 0)$
+                \end{itemize}
+                \item The second data point is $(1, 0, 1, 0)$
+                \begin{itemize}
+                    \item $\hat{y}_2 = w_0 + w_1{x_1} + w_2{x_2} = 0$
+                    \item $\hat{y}_2{y_2} = 0 \le 0$
+                    \item $w = w + \eta{y_i}{x_i} = (0, 0, 0) + 1(0, 0, 1) = (0, 0, 1)$
+                \end{itemize}
+                \item The third data point is $(1, 1, 0, 0)$
+                \begin{itemize}
+                    \item $\hat{y}_3 = w_0 + w_1{x_1} + w_2{x_2} = 1$
+                    \item $\hat{y}_3{y_3} = 0 \le 0$
+                    \item $w = w + \eta{y_i}{x_i} = (0, 0, 1) + 1(0, 1, 0) = (0, 1, 1)$
+                \end{itemize}
+                \item The fourth data point is $(1, 1, 1, 1)$
+                \begin{itemize}
+                    \item $\hat{y}_4 = w_0 + w_1{x_1} + w_2{x_2} = 2$
+                    \item $\hat{y}_4{y_4} = 1 > 0$
+                    \item We do not update $w$.
+                \end{itemize}
+                \item We have completed one epoch (one iteration through the data).
+                \item The current weights are $w = (0, 1, 1)$, $y_w(x) = 0 + 1{x_1} + 1{x_2} = x_1 + x_2$.
+                \item As we still had errors for the first three data points, we will continue to iterate (we have not converged).
+                \item When we finally have no errors, we have converged.
+                \item After convergence, we have $w = (-4, 3, 2)$, $y_w(x) = -4 + 3{x_1} + 2{x_2}$.
+                \item The exact values of the final weight vector depend on the initial values as well as the learning rate.
+                \item This would not work for the $XOR$ function, as it is not linearly separable.
+            \end{itemize}
+        \subsection{Questions?}
+            \begin{itemize}
+                \item Will the algorithm always converge for linearly separable data?
+                \begin{itemize}
+                    \item For two-class linearly separable datasets there is a separating hyperplane $w_{opt}$.
+                    \item Will the algorithm converge over finite iterations?
+                \end{itemize}
+                \item What loss function does the algorithm minimize?
+                \item We assume that the draining data has bounded Euclidean norm. (i.e. $||x_i|| \le R$ for all $i$)
+                \item The optimal classifier perfectly separates the data (i.e. $y_i{w_{opt}}^T{x_i} > 0$ for all $i$)
+            \end{itemize}
+        \subsection{Convergence}
+            \begin{itemize}
+                \item The algorithm learns the boundary in a finite number of steps based on the number of mistakes it makes starting from $w_0$.
+                \item The mistake bound is:
+                \begin{equation}
+                    k \le {\frac{R}{\gamma}}^2{||w_{opt}||}^2
+                \end{equation}
+                \item However most real-world data is not linearly separable.
+            \end{itemize}
+        \subsection{Loss to Optimize}
+            \begin{itemize}
+                \item The loss is $0$ when the label and prediction agree
+                \begin{equation}
+                    y_i{f_w(x_i)} > 0
+                \end{equation}
+                \item The loss is $\ge 0$ when the label and prediction values do not agree (i.e.\ have opposite signs)
+                \begin{equation}
+                    y_i{f_w(x_i)} \le 0
+                \end{equation}
+                \item Therefore the loss function is:
+                \begin{equation}
+                    L_p(x, y, w) = \max(0, -y{w^T}x)
+                \end{equation}
+                \item Non-zero for miisclassified points
+            \end{itemize}
+        \subsection{Gradient of Loss Function}
+            \begin{itemize}
+                \item The gradient of the loss function is:
+                \begin{align*}
+                    L_p &= \Sigma_{i=1}^N \max(0, -y_i{w^T}x_i) \\
+                    L_p &= -\Sigma_{i \in{}\mu_w} y_i{w^T{x_i}} \\
+                    \nabla{}L_p &= -\Sigma_{i \in{}\mu_w} y_i{x_i}
+                \end{align*}
+            \end{itemize}
+        \subsection{Stochastic Gradient Descent}
+            \begin{itemize}
+                \item Batch Gradient Descent \\
+                Processing the entire trainng set for each epoch can be prohibitive for large datasets
+                \item Stochastic Version \\
+                Calculate gradient based on individual training instances
+            \end{itemize}
+        \subsection{Linearly Inseperable Data}
+            \begin{itemize}
+                \item Can we apply the perceptron to linearly inseparable data?
+                \item Change in criteria:
+                \begin{itemize}
+                    \item Loss:\ find separator that makes no mistakes $\rightarrow$ find separator that makes least misclassifications (``best fit'')
+                \end{itemize}
+                \item Squared Loss:
+                \begin{itemize}
+                    \item Between perceptron output and class labels
+                    \item Output:\ Un-thresholeded
+                    \item $o(x) = w^T{x}$
+                    \item $E(w) = \frac{1}{2}\Sigma_{i_1}^N{(y_i-o_i)}^2$
+                    \item $y_i \in {0, 1}$
+                    \item $o_i \in \mathbb{R}$
+                    \item Squared loss increases with values on correct side of boundary
+                \end{itemize}
+            \end{itemize}
+\end{document}
