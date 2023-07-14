@@ -1,0 +1,218 @@
+\documentclass[12pt]{article}
+
+\usepackage{hyperref}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[fleqn]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{listings}
+
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+
+% chktex-file 44
+
+\title{
+    Machine Learning and Data Mining I:\ Lecture 6\\
+    k-Nearest Neighbor Learning and the Gaussian Distribution}
+\author{Morgan McCarty}
+\date{12 July 2023}
+
+\begin{document}
+    \maketitle
+
+    \section{ML Recipe Review}
+        \begin{enumerate}
+            \item Select Data $\rightarrow$
+            \item Explore $\rightarrow$
+            \item Transform $\rightarrow$
+            \item Train/Test Split $\rightarrow$
+            \item Build Model $\rightarrow$
+            \item Train Model
+        \end{enumerate}
+    \section{Factors for Choosing KNN}
+        Overtime data in the domain may shift (domain drift). This can be caused by many factors.
+        KNN is a non-parametric model, meaning it does not make any assumptions about the data. This makes it robust to domain drift.
+    \section{k-Nearest Neighbors}
+        \begin{itemize}
+            \item Uses proximity to make calculations about the groupings of data.
+            \item Assumes that similar data points are close together.
+        \end{itemize}
+        \subsection{Simiplified Algorithm}
+            \begin{itemize}
+                \item Given a instance with known features, but unknown label.
+                \item Find the $k$ nearest neighbors to the instance and take a majority vote.
+                \item The majority vote is the predicted label. 
+                \item High similarity (low distance) $\rightarrow$ high probability of being in the same class
+                \item Pick k closest neighbors (k is a hyperparameter) and make a prediction based on the majority class
+            \end{itemize}
+        \subsection{Algorithm}
+            \begin{enumerate}
+                \item Given a data set $D = \{(x_1, y_1), (x_2, y_2), \dots, (x_n, y_n)\}$ where $x_i \in \mathbb{R}^d$ and $y_i \in V$ where $V$ is a set of discrete labels.
+                \item Given an instance $x \in \mathbb{R}^d$.
+                \item Compute the distance between $x$ and each $x_i$ in $D$.
+                \item Sort the distances in ascending order.
+                \item Select the $k$ closest neighbors.
+                \item Return the majority class of the $k$ closest neighbors.
+            \end{enumerate}
+            To note $k$ should be odd to avoid ties.
+        \subsection{Distance}
+            \subsubsection{Euclidean Distance}
+                \begin{equation}
+                    d(x, x_i) = \sqrt{\sum_{j=1}^d {(x_j - x_{ij})}^2}
+                \end{equation}
+                \begin{itemize}
+                    \item This is the most common distance function. It is the straight line distance between two points.
+                    \item Some attributes (e.g.\ categorical attributes) have to be converted to numerical values.
+                    \item Can have labels be continuous, discrete, or categorical.
+                \end{itemize}
+            \subsubsection{Manhattan Distance}
+                \begin{equation}
+                    d(x, x_i) = \sum_{j=1}^d |x_j - x_{ij}|
+                \end{equation}
+                \begin{itemize}
+                    \item This is the distance between two points if you can only travel along the axes.
+                    \item This is useful for when you have a lot of dimensions.
+                \end{itemize}
+            \subsubsection{Cosine Similarity}
+                \begin{equation}
+                    d(x, x_i) = \frac{x \cdot x_i}{||x|| \cdot ||x_i||}
+                \end{equation}
+                \begin{itemize}
+                    \item This is the angle between two vectors.
+                    \item This is useful for when you have a lot of dimensions.
+                \end{itemize}
+            \subsubsection{Hamming Distance}
+                \begin{equation}
+                    d(x, x_i) = \sum_{j=1}^d \delta(x_j, x_{ij})
+                \end{equation}
+                \begin{itemize}
+                    \item This is the number of attributes that are different between two points.
+                    \item This is useful for when you have a lot of dimensions.
+                \end{itemize}
+        \subsection{Multiple Classes}
+            \begin{itemize}
+                \item If there are multiple classes, the majority vote is the class with the most neighbors.
+                \item If there is a tie (by distance or by count), the class is chosen randomly.
+                \item Again $k$ should be odd to avoid ties.
+            \end{itemize}
+        \subsection{Overfitting}
+            \begin{itemize}
+                \item If $k$ is too small, the model will overfit.
+                \item If $k$ is too large, the model will underfit.
+                \item Higher $k$ values remove smaller subregions which can lead to underfitting.
+            \end{itemize}
+        \subsection{Choosing k}
+            \begin{itemize}
+                \item $k$ is a hyperparameter.
+                \item $k$ is usually chosen by cross-validation.
+                \item Plot the error rate vs $k$ and choose the $k$ with approximately the lowest error rate.
+            \end{itemize}
+        \subsection{Intelligibility}
+            \begin{itemize}
+                \item With KNN, it is very easy to show why a decision was made.
+            \end{itemize}
+        \subsection{KD-Trees}
+            \begin{itemize}
+                \item It is possible to create a tree structure to store the data.
+                \item This allows very easy and exact determination of why a decision was made.
+            \end{itemize}
+        \subsection{Heterogenous/Categorical Attributes}
+            \begin{itemize}
+                \item For heterogenous attributes, we can ``one-hot encode'' the attributes. A form of normalization.
+                \item E.g.\ for ``Male'' v.\ ``Female'': \\
+                \begin{tabular}{|c|c|}
+                    \hline
+                    ``Male'' & ``Female'' \\
+                    \hline
+                    $0$ & $1$ \\
+                    \hline
+                \end{tabular} \\
+                This data point would be ``Female''.
+                \item For a $3$ attribute example of Residential Status [``Owner'', ``Renter'', ``Other'']: \\
+                \begin{tabular}{|c|c|c|}
+                    \hline
+                    ``Owner'' & ``Renter'' & ``Other'' \\
+                    \hline
+                    $1$ & $1$ & $0$ \\
+                    \hline
+                \end{tabular} \\
+                This data point would be ``Owner'', ``Renter''.
+                \item If it is necessary to have only one true value, you can use a ``bit vector''.
+            \end{itemize}
+        \subsection{Curse of Dimensionality}
+            \begin{itemize}
+                \item Since all features contribute to the distance, the more features there are, the less meaningful the distance is.
+                \item As dimensionality increases the performance of KNN will increase until an optimal point and then decrease towards infinity.
+            \end{itemize}
+        \subsection{Weight of Dimensions}
+            \begin{itemize}
+                \item Some dimensions may be more important than others.
+                \item We can weight the dimensions to make them more important.
+                \item This can be done by multiplying the distance by a weight.
+                \item This can be done by adding a weight to the distance.
+                \item This can be represented as:
+                \begin{equation}
+                    d = w_1{\left|\delta{}A_i\right|}^r + w_2{\left|\delta{}B_i\right|}^r + \cdots + w_n{\left|\delta{}Z_i\right|}^r
+                \end{equation}
+                \item Where:
+                \begin{itemize}
+                    \item $w_i$ is the weight of the $i$th dimension.
+                    \item $\delta{}A_i$ is the difference with respect to feature (dimension) $i$.
+                    \item $r$ is an exponent
+                \end{itemize}
+            \end{itemize}
+    \section{The Gaussian Distribution}
+        \subsection{Univariate}
+            \begin{equation}
+                \mathcal{N}(x | \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{{(x - \mu)}^2}{2\sigma^2}}
+            \end{equation}
+            \begin{itemize}
+                \item $\mu$ is the mean.
+                \item $\sigma^2$ is the variance.
+                \item $\sigma$ is the standard deviation.
+            \end{itemize}
+            \subsubsection{Standard Normal}
+                \begin{equation}
+                    \mathcal{N}(x | 0, 1) = \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}
+                \end{equation}
+                \begin{itemize}
+                    \item $\mu = 0$
+                    \item $\sigma^2 = 1$
+                    \item $\sigma = 1$
+                \end{itemize}
+            \subsubsection{Other Values}
+                \begin{itemize}
+                    \item Precision is the inverse of variance. $\beta = \frac{1}{\sigma^2}$
+                    \item Log Normal Form (for numerical stability):
+                    \begin{equation}
+                        \ln{P(x | \mu, \sigma^2)} = \frac{1}{2\sigma^2} \left(\Sigma_{n=1}^N {x_n-\mu}^2 - \frac{N}{2}\ln{2\pi} - \frac{N}{2}\ln{\sigma^2}\right)
+                    \end{equation}
+                \end{itemize}
+        \subsection{Multivariate}
+            \begin{equation}
+                \mathcal{N}(x | \mu, \Sigma) = \frac{1}{\sqrt{{(2\pi)}^d|\Sigma|}}e^{-\frac{1}{2}{(x - \mu)}^T\Sigma^{-1}(x - \mu)}
+            \end{equation}
+            \begin{itemize}
+                \item $\mu$ is the mean.
+                \item $\Sigma$ is the covariance matrix.
+                \item $d$ is the number of dimensions.
+            \end{itemize}
+            \subsubsection{Covariance Matrix}
+                \begin{itemize}
+                    \item Symmetric matrix.
+                    \item Diagonal is the variance of each dimension.
+                    \item E.g.\
+                    \begin{equation}
+                        P(x_1|x_1) = \begin{bmatrix}
+                            \sigma{}{x}^2{x} & \sigma_{xy} \\
+                            \sigma_{xy} & \sigma{}{y}^2{y}
+                        \end{bmatrix}
+                    \end{equation}
+                \end{itemize}
+            \subsubsection{Mean}
+                $E[X] = \int_{x} xP(x; \mu, \Sigma)dx = \mu$
+            \subsubsection{Covariance}
+                $E[(X - \mu){(X - \mu)}^T] = \Sigma$ (outer product)
+\end{document}
