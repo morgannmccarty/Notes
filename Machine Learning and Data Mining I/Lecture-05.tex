@@ -1,0 +1,232 @@
+\documentclass[12pt]{article}
+
+\usepackage{hyperref}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[fleqn]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{listings}
+
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+
+% chktex-file 44
+
+\title{
+    Machine Learning and Data Mining I:\ Lecture 5\\
+    Logistic Regression}
+\author{Morgan McCarty}
+\date{11 July 2023}
+
+\begin{document}
+    \maketitle
+
+    \section{Classification}
+        Logistic regression is a classification algorithm. 
+        It functions by estimating the parameters of a Bernoulli distribution. 
+        The Bernoulli distribution is a discrete distribution with two possible outcomes, $0$ and $1$. 
+        The probability of $1$ is $p$ and the probability of $0$ is $1 - p$. 
+        The Bernoulli distribution is a special case of the binomial distribution where $n = 1$.
+        \begin{itemize}
+            \item Data = $D = \{(x_1, y_1), (x_2, y_2), \dots, (x_n, y_n)\}$ (i.e.\ a data set which has a set of features and a label for each data point)
+            \item $x_i \in \mathbb{R}^m$ (i.e.\ $x_i$ is a vector of $m$ features)
+            \item $y_i \in V$ where $V$ is a discrete set of values (i.e.\ $y_i$ is a label)
+            \item For Logistic Regression, $V = \{0, 1\}$
+        \end{itemize}
+        \subsection{Goal}
+            \begin{itemize}
+                \item Learn a function $f: \mathbb{R}^m \rightarrow V$ ($f: x \rightarrow y$) that maps the features to the labels.
+                \item What is the form of $y$?
+                \item What is the underlying model?
+            \end{itemize}
+    \section{Discriminant Function}
+        For each class $i \in V$, we have a discriminant function $f_i(x)$. Where in Logistic Regression, $V = \{0, 1\}$, we have two discriminant functions $f_0(x)$ and $f_1(x)$. $f_i(x) \rightarrow \mathbb{R}$.
+        \subsection{Prediction Rule}
+            $y = \argmax_{i \in V} f_i(x)$
+            \begin{itemize}
+                \item The predicted class corresponds to the discriminant function with the highest score.
+                \item This is a winner-take-all approach (i.e.\ we will have discrete predictions).
+            \end{itemize}
+    \section{How Logistic Regression Works}
+        \begin{itemize}
+            \item Binary classification:\ $y \in \{0, 1\}$
+            \item The discriminant function for positive class:
+            \begin{itemize}
+                \item Modeled by the Logistic Function (a.k.a.\ Sigmoid Function: $\sigma(x) = \frac{1}{1 + e^{-x}}$):
+                \begin{equation}
+                    f(z) = \frac{1}{1 + e^{-z}}
+                \end{equation}
+                \item Maps $\mathbb{R} \rightarrow [0, 1]$
+                \item i.e.\ $P(y = 1 | x) = f({w^T}x)$
+            \end{itemize}
+        \end{itemize}
+        \subsection{Parameterize the Logistic Function}
+            \begin{align*}
+                f_1(x) &= P(y = 1 | x) \\
+                &= \frac{1}{1 + e^{-{w^T}x}} \\
+                \therefore f_0(x) &= P(y = 0 | x) \\
+                &= 1 - f_1(x) \\
+                &= \frac{e^{-{w^T}x}}{1 + e^{-{w^T}x}}
+            \end{align*}
+        \subsection{Goal}
+            Given training data: $D = \{(x_1, y_1), (x_2, y_2), \dots, (x_n, y_n)\}$, 
+            learn $w$ that fits the parameterized logistic function to the data.
+            \begin{align*}
+                \text{Predict } y &= 1: \\
+                f({w^T}x) &\geq 0.5 \\
+                &\Rightarrow {w^T}x \geq 0 \\
+                \text{Otherwise Predict: } y &= 0
+            \end{align*}
+        \subsection{Different vs. Perceptron}
+            Logistic Regression and Perceptron are both linear classifiers, but Logistic Regression is a probabilistic model while Perceptron is not.
+            Additionally Logistic Regression functions on the sigmoid function while Perceptron functions on the step function.
+        \subsection{Decision Boundary}
+            Logistic Regression learns a decision boundary that is a hyperplane.
+            At the decision boundary $f_1(x) = f_0(x)$ (i.e.\ $P(y = 1 | x) = P(y = 0 | x)$, both $0$ and $1$ are equally likely labels).
+            \begin{align*}
+                P(y = 1 | x, w) &= P(y = 0 | x, w) \\
+                \frac{P(y = 1 | x, w)}{P(y = 0 | x, w)} &= 1 \\
+                \ln\left(\frac{P(y = 1 | x, w)}{P(y = 0 | x, w)}\right) &= 0 \\
+                \ln\left(\frac{1}{e^{-{w^T}x}}\right) &= 0 \\
+                w^T{x} &= 0
+            \end{align*}
+            \subsubsection{Questons}
+                \begin{itemize}
+                    \item How can we learn the optimal paramaters?
+                    \item What is the cost function?
+                \end{itemize}
+    \section{Maximum Likelihood Estimation}
+        MLE is a method of estimating the parameters of a statistical model given observations.
+        \begin{itemize}
+            \item Data: $D = \{(x_1, y_1), (x_2, y_2), \dots, (x_n, y_n)\}$ (i.e.\ a data set which has a set of features and a label for each data point)
+            \item $x_i \in \mathbb{R}^m$ (i.e.\ $x_i$ is a vector of $m$ features)
+            \item $y_i \in V$ where $V$ is a discrete set of values (i.e.\ $y_i$ is a label)
+            \item Again this the same as what we saw earlier so $V = \{0, 1\}$ for Logistic Regression
+        \end{itemize}
+        \subsection{Goal}
+            \begin{itemize}
+                \item Fit the logistic function to the training data
+                \begin{align*}
+                    f(x) &= P(y = 1 | x) \\
+                    &= \frac{1}{1 + e^{-{w^T}x}}
+                \end{align*}
+                \item Find $w$ that maximizes the likelihood of the data (i.e.\ the probability of the data given the parameters).
+            \end{itemize}
+        \subsection{Generative Models}
+            \begin{itemize}
+                \item Model the data generation process (i.e.\ how the data was generated, rather than just the data itself).
+                \item For Logistic Regression:
+                \begin{itemize}
+                    \item Model the data (features $+$ labels) as being generated by repeated Bernoulli trials.
+                    \begin{align*}
+                        f(k; p) &= \begin{cases}
+                            p & \text{if } k = 1 \\
+                            1 - p & \text{if } k = 0
+                        \end{cases} \\
+                        f(k; p) &= p^k{(1 - p)}^{1 - k} \text{ for } k \in \{0, 1\}
+                    \end{align*}
+                \end{itemize}
+            \end{itemize}
+        \subsection{Data Likelihood Function}
+            \begin{itemize}
+                \item Class conditional Probabilities
+                \begin{itemize}
+                    \item Labels:\ $y \in \{0, 1\}$
+                    \begin{align*}
+                        P(y = 1 | x) &= \sigma({w^T}x) \\
+                        &= \frac{1}{1 + e^{-{w^T}x}} \\
+                        P(y = 0 | x) &= 1 - P(y = 1 | x) \\
+                    \end{align*}
+                    \item Where $\sigma(x) = \frac{1}{1 + e^{-x}}$ is the logistic function (a.k.a.\ sigmoid function).
+                \end{itemize}
+                \item Likelihood for a single observation:
+                \begin{align*}
+                    P(y | x, w) &= Bernoulli(y | \sigma({w^T}x)) \\
+                    &= \sigma{({w^T}x)}^y{(1 - \sigma({w^T}x))}^{1 - y}
+                \end{align*}
+                \item Likelihood for the entire data set:
+                \begin{align*}
+                    P(y | x, w) &= \prod_{i = 1}^n \sigma{({w^T}x_i)}^{y_i}{(1 - \sigma({w^T}x_i))}^{1 - y_i}
+                \end{align*}
+                \begin{itemize}
+                    \item Intuitively, this is the probability of the data given the parameters. We multiply the probabilities of each data point together because we assume that the data points are independent.
+                \end{itemize}
+                \item Log Likelihood:
+                \begin{align*}
+                    LL &= \ln P(y | x, w) \\
+                    &= \sum_{i = 1}^n \ln \sigma{({w^T}x_i)}^{y_i}{(1 - \sigma({w^T}x_i))}^{1 - y_i} \\
+                    & = \sum_{i = 1}^n {y_i}\ln \sigma({w^T}x_i) + {(1 - y_i)}\ln(1 - \sigma({w^T}x_i))
+                \end{align*}
+                \item Maximize the log likelihood:
+                \begin{align*}
+                    w^* &= \argmax_w LL \\
+                    &= \argmax_w \sum_{i = 1}^n {y_i}\ln \sigma({w^T}x_i) + {(1 - y_i)}\ln(1 - \sigma({w^T}x_i))
+                \end{align*}
+                \begin{itemize}
+                    \item This is equivalent to minimizing the negative log likelihood.
+                    \begin{equation}
+                        E(w) = -LL
+                    \end{equation}
+                    \item This is the cost function for Logistic Regression.
+                \end{itemize}
+                \item Derivative of the cost function:
+                \begin{itemize}
+                    \item We first need to find the derivative of the sigmoid function.
+                    \begin{align*}
+                        \sigma(x) &= \frac{1}{1 + e^{-x}} \\
+                        &= {(1 + e^{-x})}^{-1} \\
+                        &= {(1 + e^{-x})}^{-2} \cdot e^{-x} \\
+                        &= \sigma{(x)}^2 \cdot e^{-x} \\
+                        \therefore \sigma'(x) &= \sigma{(x)}^2 \cdot e^{-x} \\
+                        &= \sigma(x)(1 - \sigma(x))
+                    \end{align*}
+                    \item Therefore $\sigma'({w^T}x) = \sigma({w^T}x)(1 - \sigma({w^T}x))$
+                    \item Now we can find the derivative of the cost function.
+                    \begin{equation*}
+                        \frac{\partial{}E(w)}{\partial{}w_j} = \Sigma_{i=1}^N(\sigma{w^T}x_i - y_i)x_{ij}
+                    \end{equation*}
+                \end{itemize}
+                \item It is important to note that there is no closed form solution for $w^*$. As such we have to use an iterative method to find $w^*$ (e.g.\ gradient descent).
+                \item Maximizing the log likelihood is equivalent to minimizing the negative log likelihood. So the negative log likelihood is the cost function for Logistic Regression.
+                \begin{equation}
+                    E(w) = -\Sigma_{i=1}^N(y_i\ln\sigma({w^T}x_i) + (1 - y_i)\ln(1 - \sigma({w^T}x_i)))
+                \end{equation}
+            \end{itemize}
+        \subsection{Gradient Descent}
+            \begin{itemize}
+                \item Initialize $w$ to a zero vector. $w = {[0, 0, \dots, 0]}^T$
+                \item While the cost function is not minimized (i.e.\ $E(w) > 0$, not converged to zero):
+                \begin{align*}
+                    w^k &\leftarrow w^{k - 1} - \eta \nabla E(w^{k - 1}) \\
+                    w^k &\leftarrow w^{k - 1} - \eta X^T(0 - Y)
+                \end{align*}
+                \item Convergence criteria:
+                \begin{itemize}
+                    \item $E(w^{k - 1}) - E(w^k) < \epsilon$
+                    \item The reduction in the cost function is less than some threshold $\epsilon$.
+                    \item Or we have reached a maximum number of iterations.
+                \end{itemize}
+            \end{itemize}
+        \subsection{Shortcomings}
+            One of the biggest shortcomings of Logistic Regression is the possibility of overfitting, especially when the data is linearly separable.
+            \subsubsection{Regularization}
+                \begin{itemize}
+                    \item We can use regularization to prevent overfitting.
+                    \item This is the same as what we used in Linear Regression.
+                    \item We add a regularization term to the cost function.
+                    \begin{equation}
+                        E(w) = -\Sigma_{i=1}^N(y_i\ln\sigma({w^T}x_i) + (1 - y_i)\ln(1 - \sigma({w^T}x_i))) + \frac{\lambda}{2}{w^T}w
+                    \end{equation}
+                    \begin{itemize}
+                        \item Where $\lambda$ is the regularization parameter.
+                        \item $\lambda$ is a hyperparameter of the model.
+                        \item $\lambda \geq 0$
+                    \end{itemize}
+                \end{itemize}
+        \subsection{Cross Entropy Loss}
+            \begin{itemize}
+                \item The cost function for Logistic Regression is also known as the cross entropy loss function.
+                \item It can be done for either label:\ $0$ or $1$.
+            \end{itemize}
+\end{document}
