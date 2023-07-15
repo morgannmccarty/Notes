@@ -1,0 +1,137 @@
+\documentclass[12pt]{article}
+
+\usepackage{hyperref}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[fleqn]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+% \usepackage{tikz}
+
+% chktex-file 8
+% chktex-file 44
+
+\title{
+    Probability and Statistics:\ Lesson 5
+    \\Joint Densities:\ Discrete}
+\author{Morgan McCarty}
+\date{12 July 2023}
+
+\begin{document}
+    \maketitle
+
+    \subsection{Comparison of Discrete and Continuous Random Variables}
+        \subsection{Discrete}
+            \begin{itemize}
+                \item $Ran(X)$:\ discrete set (finite/countable)
+                \item pdf:\ $P(X = x), x \in Ran(X)$
+                \item e.g.
+                \begin{itemize}
+                    \item $P(X = 1), P(X = 2), P(X = 3), \ldots, P(X = 6) = \frac{1}{6}$ for a fair die
+                \end{itemize}
+            \end{itemize}
+        \subsection{Continuous}
+            \begin{itemize}
+                \item $Ran(X)$:\ continuous interval (or union of such intervals) e.g. $(0, 1)$
+                \item pdf:\ $f_X(x)$ such that $P(a \leq X \leq b) = \int_{a}^{b} f_X(x) dx$, piecewise continuous
+                \item e.g.
+                \begin{itemize}
+                    \item $X \sim Uniform(0, 1)$
+                    \item $P(\frac{1}{4} < X < \frac{1}{2}) = \int_{\frac{1}{4}}^{\frac{1}{2}} 1\ dx = \frac{1}{4}$
+                \end{itemize}
+                \item or
+                \begin{itemize}
+                    \item $X \sim Exponential(\lambda)$ ($\lambda$ is the rate of decay)
+                    \item $f_X(x) = \lambda e^{-\lambda x}$ for $x, \lambda \geq 0$
+                    \item $P(a < X < b) = \int_{a}^{b} \lambda e^{-\lambda x}\ dx = e^{-\lambda a} - e^{-\lambda b}$
+                \end{itemize}
+            \end{itemize}
+    \section{Lesson 4 Continued}
+        \subsection{Derivation of \texorpdfstring{$E(X) = \frac{1}{\lambda}$}{Expected Value of an Exponential Distribution}}
+            \begin{align*}
+                X &\sim Exponential(\lambda) \\
+                E(X) &= \int_{0}^{\infty} {x}{\lambda}{e^{-\lambda x}}\ dx \\
+                &= \lambda \int_{0}^{\infty} x e^{-\lambda x}\ dx \\
+                &\text{Use integration by parts} \\
+                \int x^n e^{ax}\ dx &= \frac{n!}{a^{n+1}} \\
+                E(X) &= \lambda\frac{1!}{\lambda} \\
+                &= \frac{1}{\lambda}
+            \end{align*}
+            \begin{itemize}
+                \item $Var(X)$:
+                \begin{align*}
+                    Var(X) &= E(X^2) - \mu^2 \\
+                    &= \int_{0}^{\infty} x^2 \lambda e^{-\lambda x}\ dx - \frac{1}{\lambda^2} \\
+                    &= \frac{2}{\lambda^2} - \frac{1}{\lambda^2} \\
+                    &= \frac{1}{\lambda^2}
+                \end{align*}
+            \end{itemize}
+    \section{Lesson 5:\ Joint Densities:\ Discrete}
+        \begin{itemize}
+            \item A \underline{Joint Density} occurs when we are interested in multiple variables at the same time.
+            \item e.g.\ $X$ and $Y$.
+        \end{itemize}
+        \subsection{Example}
+            \begin{itemize}
+                \item Assume we have a fair 3-way spinner (i.e.\ a spinner with 3 equal sectors with equal probability of landing on each sector).
+                \item We spin the spinner twice.
+                \item Let $X$ be the sum of the two spins. Let $Y$ be the absolute difference of the two spins.
+                \item $S = $
+                \begin{align*}
+                    \begin{bmatrix}
+                        (2, 1), & (2, 2), & (2, 3), \\
+                        (1, 1), & (1, 2), & (1, 3), \\
+                        (3, 1), & (3, 2), & (3, 3)
+                    \end{bmatrix}
+                \end{align*}
+                \item $Ran(X) = \{2, 3, 4, 5, 6\}$
+                \item $Ran(Y) = \{0, 1, 2\}$
+                \item Joint pdf $f_{X, Y}(x, y) = P(X = x, Y = y) = p_{X, Y}(x, y)$ \\
+                \begin{tabular}{c|c|c|c|c|c|c}
+                    \hline
+                    $\downarrow{}Y$ $X\rightarrow$ & $2$ & $3$ & $4$ & $5$ & $6$ & $p_Y(y)$  \\
+                    \hline
+                    $0$ & $\frac{1}{9}$ & $0$ & $\frac{1}{9}$ & $0$ & $\frac{1}{9}$ & $\frac{3}{9}$ \\
+                    \hline
+                    $1$ & $0$ & $\frac{2}{9}$ & $0$ & $\frac{2}{9}$ & $0$ & $\frac{4}{9}$ \\
+                    \hline
+                    $2$ & $0$ & $0$ & $\frac{2}{9} $ & $0$ & $0$ & $\frac{2}{9}$ \\
+                    \hline
+                    $p_X(x)$ & $\frac{1}{9}$ & $\frac{2}{9}$ & $\frac{3}{9}$ & $\frac{2}{9}$ & $\frac{1}{9}$ & \\
+                \end{tabular}
+                \item Marginal pdfs: $p_X(x) = \sum_{y} p_{X, Y}(x, y)$ and $p_Y(y) = \sum_{x} p_{X, Y}(x, y)$
+            \end{itemize}
+        \subsection{Independence}
+            $X$ and $Y$ are independent if and only if $p_{X, Y}(x, y) = p_X(x) \cdot p_Y(y)$ for all $x, y$.
+            \begin{itemize}
+                \item From the example:
+                \begin{itemize}
+                    \item $X, Y$ are not independent because $p_{X, Y}(2, 1) = \frac{1}{9} \neq \frac{1}{9} \cdot \frac{4}{9} = p_X(2) \cdot p_Y(1)$
+                \end{itemize}
+            \end{itemize}
+        \subsection{Expected Value}
+            $E[g(X, Y)] = \sum_{x} \sum_{y} g(x, y) \cdot p_{X, Y}(x, y)$
+        \subsection{Covariance}
+            $Cov(X, Y) = E[(X - \mu_X)(Y - \mu_Y)] = E(XY) - \mu_X \mu_Y$
+            \begin{itemize}
+                \item $Cov(X, Y) = 0$ if $X, Y$ are independent.
+                \item $Cov(X, Y) > 0$ if $X, Y$ are positively correlated.
+                \item $Cov(X, Y) < 0$ if $X, Y$ are negatively correlated.
+            \end{itemize}
+            \begin{equation}
+                E(XY) = \sum_{x} \sum_{y} x \cdot y \cdot p_{X, Y}(x, y)
+            \end{equation}
+        \subsection{Theorems}
+            \begin{enumerate}
+                \item $E(aX + bY + c) = aE(X) + bE(Y) + c$
+                \item $Var(aX + bY + c) = a^2 \cdot Var(X) + b^2 \cdot Var(Y) + 2ab \cdot Cov(X, Y)$
+            \end{enumerate}
+        \subsection{IID}
+            $X_1, X_2, \ldots, X_n$ are independent and identically distributed (IID) 
+            if and only if $pdf(X_1) = pdf(X_2) = \cdots = pdf(X_n)$ and $X_1, X_2, \ldots, X_n$ are independent.
+            \subsubsection{Consequences}
+                \begin{itemize}
+                    \item \underline{Sample Sum}: $S_n = X_1 + X_2 + \cdots + X_n$
+                    \item $E(S_n) = n \cdot \mu$
+                    \item $Var(S_n) = n \cdot \sigma^2$
+                \end{itemize}
+\end{document}
