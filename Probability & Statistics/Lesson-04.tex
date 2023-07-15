@@ -108,10 +108,32 @@
                     &= \frac{b^2 - 2ab + a^2}{12} \\
                     &= \frac{{(b-a)}^2}{12} 
                 \end{align*}
+                \subsubsection{Note}
+                    \begin{align*}
+                        \frac{b^n-a^n}{b-a} &= \sum_{i=0}^{n-1} a^i b^{n-1-i}
+                    \end{align*}
             \end{itemize}
         \subsection{Exponential Distributon}
             \begin{itemize}
                 \item \underline{Exponential Distribution}: $X \sim Exponential(\lambda)$ where $\lambda > 0$.
                 \item $Ran(X) = (0, \infty)$
+                \item pdf:
+                \begin{align*}
+                    f_X(x) &= \lambda e^{-\lambda x} \\
+                \end{align*}
+                \item cdf:
+                \begin{align*}
+                    F_X(x) &= P(X \leq x) \\
+                    &= \int_{-\infty}^{x} f_X(t) dt \\
+                    &= \int_{0}^{x} \lambda e^{-\lambda t} dt \\
+                    &= -e^{-\lambda t} \Big|_{0}^{x} \\
+                    &= -e^{-\lambda x} + 1 \\
+                    &= 1 - e^{-\lambda x}
+                \end{align*}
+                \item Expected Value:
+                \begin{align*}
+                    E(X) &= \int_{-\infty}^{\infty} x \cdot f_X(x) dx \\
+                    &= \frac{1}{\lambda}
+                \end{align*}
             \end{itemize}
 \end{document}
