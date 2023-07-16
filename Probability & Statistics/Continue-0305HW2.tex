@@ -1,0 +1,143 @@
+\documentclass[12pt]{article}
+
+\usepackage{hyperref}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[fleqn]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+% \usepackage{tikz}
+
+% chktex-file 8
+% chktex-file 44
+
+\title{
+    Probability and Statistics:\\
+    Lessons 3 and 5 Continued, Homework 2}
+\author{Morgan McCarty}
+\date{13 July 2023}
+
+\begin{document}
+    \maketitle
+
+    \section{Lessons 3 and 5 Continued}
+        \subsection{Examples}
+            \begin{enumerate}
+                \item There is a dice game which costs $\$5$ to play.
+                \begin{itemize}
+                    \item Two fair dice are rolled
+                    \item If the result is a \underline{double} (both dice have the same value) then the player wins $\$10$ (net $\$5$)
+                    \item If the result is \underline{odd} then the player wins $\$n$ where $n$ is the sum of the two dice
+                    \item $X$ is the player's net winnings (or losses)
+                    \item Is the game fair? ($E(X) = 0$)
+                    \item pdf:
+                    \begin{tabular}{|c|c|c|c|c|c|c|c|}
+                        \hline
+                        $k$ & $-5$ & $5$ & $-2$ & $0$ & $2$ & $4$ & $6$ \\
+                        \hline
+                        $p_X(k)$ & $\frac{12}{36}$ & $\frac{6}{36}$ & $\frac{2}{36}$ & $\frac{4}{36}$ & $\frac{6}{36}$ & $\frac{4}{36}$ & $\frac{2}{36}$ \\ 
+                        \hline
+                    \end{tabular}
+                    \item Expected Value:
+                    \begin{align*}
+                        E(X) &= \sum_{k} k \cdot p_X(k) \\
+                        &= -5 \cdot \frac{12}{36} + 5 \cdot \frac{6}{36} + (-2) \cdot \frac{2}{36} + 0 \cdot \frac{4}{36} + 2 \cdot \frac{6}{36} + 4 \cdot \frac{4}{36} + 6 \cdot \frac{2}{36} \\
+                        &= \frac{6}{36}
+                    \end{align*}
+                \end{itemize}
+                \item Flip a coin $n$ times
+                \begin{itemize}
+                    \item $X$ is the number of heads, $p$ is the probability of heads
+                    \item $Ran(X) = \{0, 1, 2, \ldots, n\}$
+                    \item $X = X_1 + X_2 + \cdots + X_n$ where $X_i \sim Bernoulli(p)$
+                    \item $E(X_i) = p$
+                    \item $E(X) = n \cdot p$
+                    \item $Var(X_i) = p(1-p)$
+                    \item $Var(X) = n \cdot p(1-p)$
+                    \item Binomial distributions are sums of Bernoulli distributions
+                \end{itemize}
+            \end{enumerate}
+    \section{Homework 2 Notes}
+        \begin{enumerate}
+            \item In the World Series, two teams play a series of games until one team gets four wins. Suppose two evenly matched teams are playing (each team has an equal probability of winning). Let $X$ be the number of games player until there is a winner. Find $E(X)$ and $Var(X)$.
+            \begin{itemize}
+                \item $X = $ the number of games player until there is a winner.
+                \item $Ran(X) = \{4, 5, 6, 7\}$
+                \item pdf:
+                \begin{tabular}{|c|c|c|c|c|}
+                    \hline
+                    $k$ & $4$ & $5$ & $6$ & $7$ \\
+                    \hline
+                    $p_X(k)$ & $2 \cdot \binom{3}{0} \cdot {\frac{1}{4}}^4$ & $2 \cdot \binom{4}{1} \cdot {\frac{1}{2}}^5$ & \ldots & \ldots \\
+                    \hline
+                \end{tabular}
+            \end{itemize}
+            \item Four people ($\{A, B, C, D\}$) form a random line
+            \begin{itemize}
+                \item $X$ is the number of people between $A$ and $B$, $Y$ is the number of people between $C$ and $D$
+                \begin{enumerate}
+                    \item Find the Joint pdf of $X$ and $Y$ and then the Marginal pdfs.
+                    \begin{itemize}
+                        \item $Ran(X) = \{0, 1, 2\}$
+                        \item $Ran(Y) = \{0, 1, 2\}$
+                        \item $P(X = 0, Y = 0) = \frac{2!2!2!}{4!}$ ($ABCD$, $BACD$, $ABDC$, $BADC$, $CDAB$, $DCAB$, $CDBA$, $DCBA$)
+                        \item Joint pdf:
+                        \begin{tabular}{|c|c|c|c|c|}
+                            \hline
+                            $\downarrow Y X \rightarrow$ & $0$ & $1$ & $2$ & $p_Y(y)$ \\
+                            \hline
+                            $0$ & $\frac{8}{24}$ & $0$ & \ldots & \ldots \\
+                            \hline
+                            $1$ & \ldots & \ldots & \ldots & \ldots \\
+                            \hline
+                            $2$ & \ldots & \ldots & \ldots & \ldots \\
+                            \hline
+                            $p_X(x)$ & \ldots & \ldots & \ldots & \\
+                            \hline
+                        \end{tabular}
+                    \end{itemize}
+                    \item Calculate the covariance of $X$ and $Y$
+                    \begin{itemize}
+                        \item $Cov(X, Y) = E(XY) - E(X)E(Y)$
+                        \item Covariance should be negative $\rightarrow$ as $X$ increases, $Y$ decreases and vice versa
+                    \end{itemize}
+                \end{enumerate}
+            \end{itemize}
+            \item Suppose N people throw their hats into the air, find the expected number of people who caught their own hat.
+            \begin{itemize}
+                \item $X_i$: \# of own hats caught by the $i$-th person
+                \item $X = X_1 + X_2 + \cdots + X_N$ (total \# of people who catch their own hat)
+                \item $E(X) = E(X_1) + E(X_2) + \cdots + E(X_N)$
+                \item pdf:
+                \begin{tabular}{|c|c|c|}
+                    \hline
+                    $k$ & $0$ & $1$ \\
+                    \hline
+                    $p_{X_i}(k)$ & $1 - \frac{1}{N}$ & $\frac{1}{N}$ \\
+                    \hline
+                \end{tabular}
+            \end{itemize}
+            \item In a series of coin flips with a biased coin where $P(H) = p$.
+            \begin{itemize}
+                \item $X$ is the number of flips until the first head
+                \item $p_X(k) = {(1-p)}^{k-1}p$ for $k \in {1, 2, 3, \ldots}$
+            \end{itemize}
+            \begin{enumerate}
+                \item Find $E(X)$
+                \begin{align*}
+                    E(X) &= \sum_{k=1}^{\infty} k \cdot {(1-p)}^{k-1}p \\
+                    &= p \sum_{k=1}^{\infty} k \cdot {(1-p)}^{k-1} \\
+                    \text{Given: } \\
+                    \sum_{k=1}^{\infty} k \cdot q^{k-1} &= \frac{1}{{(1-q)}^2} \\
+                \end{align*}
+                \item $Y$ is the number of flips until the second head. Find $P(Y = k)$.
+                \begin{align*}
+                    P(Y = k) &= \binom{k-1}{1} \ldots
+                \end{align*}
+                \item Find $E(Y)$
+                \begin{align*}
+                    E(Y) &= E(X_1) + E(X_2) \text{ where } X_1 \sim Geometric(p) \text{ and } X_2 \sim Geometric(p)
+                \end{align*}
+            \end{enumerate}
+        \end{enumerate}
+\end{document}
