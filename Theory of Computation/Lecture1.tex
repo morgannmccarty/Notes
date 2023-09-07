@@ -17,4 +17,189 @@
 
 \begin{document}
     \maketitle
+
+    \begin{enumerate}
+        \item \underline{Theory of Computation}
+        \begin{itemize}
+            \item What is computation?
+            \begin{itemize}
+                \item Math-checking if no.\ prime
+                \item Verifying logic
+                \item Navigational routing
+                \item Comparing strings $\rightarrow$ looking up, sorting, etc.\ 
+            \end{itemize}
+            \item All computation relative to computer? Can we do ths w/o the computer?
+            \item What is a computer? Modeling a computer
+            \begin{itemize}
+                \item Supported operations
+                \item Determinsitic (usually)
+                \item Output
+                \item Input
+            \end{itemize}
+            \item Are there fundamental limits on what is computable? \\
+                \underline{Yes}: Halting problem
+            \begin{itemize}
+                \item Does a program actually halt?
+            \end{itemize}
+            \item Areas of the course: (in order of decreasing complexity)
+            \begin{enumerate}
+                \item Computability: what can be computed given enough time and space
+                \item Complexity: how fast/efficiently can we solve a problem
+                \item Automata: what problems can we solve given very limited space (constant)
+            \end{enumerate}
+            \item Why does this matter?
+            \begin{itemize}
+                \item Checking correctness of a program
+                \item Knowinig what functions can be computed quickly and which cannot (security)
+            \end{itemize}
+            \item Goals of the course:
+            \begin{enumerate}
+                \item Understand notions of computability
+                \item Understand limitations of computability
+                \item What can be doen with weaker forms of computability
+                \item Computational relation to formal languages
+            \end{enumerate}
+        \end{itemize}
+        \item Mathematical Review
+        \begin{itemize}
+            \item Sets:
+            \begin{itemize}
+                \item Unordered group of elements (finite or infinite)
+                \item E.g.
+                \begin{itemize}
+                    \item $\mathbb{N} = \{1, 2, \ldots\}$
+                    \item $\mathbb{N} \cup {0}$
+                    \item $\mathbb{Z} = \{\ldots, -2, -1, 0, 1, 2, \ldots\}$
+                    \item $\emptyset = \{\}$
+                \end{itemize}
+                \item Set Operations:
+                \begin{itemize}
+                    \item $X \cup Y = \{x \mid x \in X \lor x \in Y\}$
+                    \item $X \cap Y = \{x \mid x \in X \land x \in Y\}$
+                    \item $\bar{X}$: negaton of set relative to universe
+                    \item $X \setminus Y = X - Y = \{x \mid x \in X \land x \notin Y\} = X \cap \bar{Y}$
+                \end{itemize}
+            \end{itemize}
+            \item Logic:
+            \begin{itemize}
+                \item $\land$: and
+                \item $\lor$: or
+                \item $\implies$: implication
+                \item $\alpha \implies \beta$ \\
+                ``if $\alpha$ is truse, then $\beta$ is true'' \\
+                ``if Corina gets fed, then Ariel sleeps in''
+                \item Negation of $\alpha \implies \beta$ is $\alpha \land \bar{\beta} \equiv \bar{\alpha} \lor \beta$
+                \item Satisfiable: the formula has a set of boolean assignments so that the entire thing evaluates to true
+            \end{itemize}
+            \item Proof Techniques:
+            \begin{itemize}
+                \item Proof by induction
+                \begin{itemize}
+                    \item Induction Prove: $\forall n \in \mathbb{N}_0, P(n)$
+                    \item $P(n)$: predicate (boolean statement about $n$)
+                    \item \underline{Base Case}: $P(0)$ (or $P(1)$)
+                    \item \underline{Inductive Step}: Assume $P(n)$ is true, show $P(n+1)$ is true
+                    \item E.g.
+                    \begin{itemize}
+                        \item Show $5+10+15+\cdots+5n = \frac{5n(n+1)}{2} \forall n \in \mathbb{N}$
+                        \item Base Case: $n=1$ \\
+                        $5 = \frac{5(1)(2)}{2} = 5$
+                        \item Inductive Step: We know for $n = k$ \\
+                        $5+10+15+\cdots+5k = \frac{5k(k+1)}{2}$
+                        \item Show for $n = k+1$: \\
+                        $5 + 10 + 15 + \cdots + 5k + 5(k+1) = \frac{5k(k+1)}{2} + 5(k+1)$ \\
+                        $= \frac{5k(k+1) + 10(k+1)}{2} = \frac{5(k+1)(k+2)}{2}$
+                    \end{itemize}
+                \end{itemize}
+                \item Proof by contradiction
+                \begin{itemize}
+                    \item Assume the opposite of proof statement and show that it leads to a contradiction of a known fact
+                    \item E.g.
+                    \begin{itemize}
+                        \item Show $\sqrt{2}$ is irrational (cannot be written as $\frac{p}{q}$ where $p, q \in \mathbb{Z}$ and $q \neq 0$)
+                        \item Assume $\sqrt{2}$ is rational
+                        \item $\sqrt{2} = \frac{p}{q}$ where $p, q \in \mathbb{Z}$ and $q \neq 0$
+                        \item $p$ and $q$ are relatively prime (no common factors)
+                        \item $q\sqrt{2} = p$
+                        \item $2q^2 = p^2$
+                        \item $p^2$ is even $\implies p$ is even
+                        \item $p = 2k$ for some $k \in \mathbb{Z}$
+                        \item $2q^2 = {(2k)}^2 = 4k^2$
+                        \item $q^2 = 2k^2$
+                        \item $q^2$ is even $\implies q$ is even
+                        \item $p$ and $q$ are both even, but this contradicts the fact that $p$ and $q$ are relatively prime
+                        \item $\therefore \sqrt{2}$ is irrational
+                    \end{itemize}
+                \end{itemize}
+                \item Proof by construction
+                \item Proof by contrapositive
+                \item Proof by reduction
+            \end{itemize}
+            \item \underline{Alphabet}
+            \begin{itemize}
+                \item $\Sigma$: finite set of symbols (``letters'', ``elements'')
+                \item E.g.
+                \begin{itemize}
+                    \item $\Sigma = \{0, 1\}$, $\Sigma = \{a, b, c\}$
+                \end{itemize}
+                \item A string over $\Sigma$ ($w \in \Sigma$) is a finite sequence of symbols from $\Sigma$. $\Sigma^*$ is the set of all strings over $\Sigma$.
+                \item E.g.
+                \begin{itemize}
+                    \item $w = 010101$, $w = 101010$, or $w = 0000$
+                    \item $w =$ aabab, $w =$ ababab, or $w =$ aaa
+                    \item $\epsilon$ is the empty string
+                \end{itemize}
+            \end{itemize}
+            \item \underline{Language}
+            \begin{itemize}
+                \item A language over $\Sigma$ is a set of strings over $\Sigma$
+                \item E.g.
+                \begin{itemize}
+                    \item $L = \{a, ab, aa, bb, \ldots\}$ is a language over $\Sigma = \{a, b\}$
+                \end{itemize}
+                \item Language is a subset from $\Sigma^*$
+                \item How to decide what's in a language?
+                \begin{itemize}
+                    \item Total list
+                    \item Can we do better?
+                \end{itemize}
+                \item \underline{Machine} to decide the language
+                \item $x \in \Sigma^* \rightarrow \boxed{M} \rightarrow Y$ or $N$
+                \item Often define an $L$ by the describetion of the $M$ \\
+                $M$ \underline{accepts} some strings and \underline{rejects} others \\
+                $M$ defines a language $L(M) = \{x|M \text{ accepts } x\}$
+            \end{itemize}
+            \item \underline{Strings}
+            \begin{itemize}
+                \item Concatenation: $x \cdot y$ \\
+                abc $\cdot$ aab $= $ abcaab
+                \item Empty string: $\epsilon$
+                a $\cdot \epsilon = \epsilon \cdot a = a$
+                \item Length: $|a|$ is the number of elements in a String $a$ \\
+                $|$aab$| = 3$, $|\epsilon| = 0$
+                \item Prefix: $x, y \in \Sigma^*$, $x$ is a prefix of $y$ if $\exists z \in \Sigma^*$ such that $x \cdot z = y$ \\
+                If $x = y$, then $z = \epsilon \iff x$ is a prefix of $y$ and $y$ is a prefix of $x$ \\
+                Something is always a prefix of itself
+                \item Suffix: $x$ is a suffix of $y$ if $\exists z \in \Sigma^*$ such that $z \cdot x = y$ \\
+                If $x = y$, then $z = \epsilon \iff x$ is a suffix of $y$ and $y$ is a suffix of $x$ \\
+                Something is always a suffix of itself
+                \item Substring: $x$ is a substring of $y$ if $\exists z_1, z_2 \in \Sigma^*$ such that $z_1 \cdot x \cdot z_2 = y$ \\
+                If $x = y$, then $z_1 = z_2 = \epsilon \iff x$ is a substring of $y$ and $y$ is a substring of $x$
+                $z_1$ and $z_2$ can be $\epsilon$
+                \item Lexigraphical Ordering over String: \\
+                Requires order on $\Sigma$ can be used to order strings
+            \end{itemize}
+            \item Countable and Uncountable Sets
+            \begin{itemize}
+                \item $A: \{1, 2, 3\}$, $B: {x, y, z}$
+                \item Function $f$ that maps $A$ to $B$ (one-to-one)
+                \item $f(1) = x$, $f(2) = y$, $f(3) = z$
+                \item $|A| = |B| = 3$ then $\exists f$ that is one-to-one correspondence
+                \item Works for finite sets and countably infinite sets
+                \item $\mathbb{N}$, $2\mathbb{N}$, $f: \mathbb{N} \rightarrow 2\mathbb{N}$
+                \item If infinite set can be mapped to $\mathbb{N}$, then it is \underline{countably} infinite
+                \item If infinite set cannot be mapped to $\mathbb{N}$, then it is \underline{uncountably} infinite
+            \end{itemize}
+        \end{itemize}
+    \end{enumerate}
 \end{document}
