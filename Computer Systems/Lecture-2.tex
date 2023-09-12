@@ -1,0 +1,57 @@
+\documentclass[12pt]{article}
+
+\usepackage{listings}
+
+% chktex-file 44
+% chktex-file 38
+
+\title{
+    Computer Systems:\ Lecture 2}
+\author{Morgan McCarty}
+\date{12 September 2023}
+
+\begin{document}
+    \maketitle
+
+    \begin{itemize}
+        \item SSH
+        \begin{itemize}
+            \item Secure Shell protocol
+            \item Connect to remote machines through terminal
+        \end{itemize}
+        \item BASH
+        \begin{itemize}
+            \item Bourne Again Shell
+            \item Programming language for terminal (Turing complete)
+            \item e.g.
+            \begin{lstlisting}[language=bash,gobble=16]
+                echo "Hello, world!"
+            \end{lstlisting}
+            or
+            \begin{lstlisting}[language=bash,gobble=16]
+                for i in {1..<x>}; do
+                    <command>;
+                done
+            \end{lstlisting}
+        \end{itemize}
+        \item ``Hello, world!''
+        \begin{itemize}
+            \item First, in Java
+            \begin{lstlisting}[language=java,gobble=16]
+                public class HelloWorld {
+                    public static void main(String[] args) {
+                        System.out.println("Hello, World!");
+                    }
+                }
+            \end{lstlisting}
+            \item Then, in C
+            \begin{lstlisting}[language=c,gobble=16]
+                #include <stdio.h>
+                int main() {
+                    printf("Hello, World!\n");
+                    return 0;
+                }
+            \end{lstlisting}
+        \end{itemize}
+    \end{itemize}
+\end{document}

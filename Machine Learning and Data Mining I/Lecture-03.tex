@@ -140,7 +140,7 @@
             Slight perturbations in input features lead to large changes in the output.
             We can avoid overfitting by discouraging large model parameter values.
         \subsection{Occam's Razor}
-            ``Among competing hypotheses, the one with the fewest assumptions should be selected.'' \\
+            ``Among competing hypotheses, the one with the fewest assumptions should be selected''. \\
             In order to avoid overfitting, we should choose the simplest model that fits the data.
         \subsection{Regularized Linear Regression}
             \begin{itemize}
@@ -195,7 +195,7 @@
                     w^{i+1} = (1 - \eta \lambda) w^i - \eta \Sigma_{j=1}^N (w_0^i + w^{iT}x_j-y_j)(x_j) \text{, where } \lambda \geq 0
                 \end{equation}
                 \item The regularization term is included for the rest of the weights.
-                \item The second equation corresponds to ``weight decay.'' i.e.\ each weight is decayed by a factor of $(1 - \eta \lambda)$.
+                \item The second equation corresponds to ``weight decay''.\ i.e.\ each weight is decayed by a factor of $(1 - \eta \lambda)$.
                 \item ``Weight decay'' is a common term for regularization in neural networks. It is used because it is equivalent to L2 regularization. Both equations are not necessary to use together (i.e.\ you can use one or the other).
                 \item As mentioned before, there are other norms that can be used for regularization.
                 \item From a technical viewpoint: $\lambda$ is a rank conditioner for the data covarience matrix, which helps make sure that the matrix is invertible.
