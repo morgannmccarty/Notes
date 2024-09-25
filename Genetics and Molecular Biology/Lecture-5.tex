@@ -1,0 +1,93 @@
+\documentclass[12pt]{article}
+
+\usepackage{hyperref}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[fleqn]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+% \usepackage{tikz}
+
+% chktex-file 8
+
+\title{
+    Genetics and Molecular Biology: Lecture 5}
+\author{Morgan McCarty}
+\date{12 September 2024}
+
+\begin{document}
+    \maketitle
+    \begin{itemize}
+        \item DNA Replication Technology
+        \begin{itemize}
+            \item Polymerase Chain Reaction (PCR) - 1983
+            \begin{itemize}
+                \item In vitro (test tube) method for making copies of DNA sequences using DNA polymerase
+                \item USes: molecular cloning, diagnostics, forensics, DNA sequencing, gene expression analysis, etc.
+                \item E.g. Covid testing
+                \item PCR amplifies specific `target' DNA sequences
+            \end{itemize}
+            \item PCR Primers Initiate Replication
+            \begin{itemize}
+                \item Short DNA sequences (oligonucleotides) produced synthetically and added to PCR Reaction
+                \item Fufill same role as RNA primase (but are DNA)
+                \item Primers can be designed to target regions of desire (region amplifed between primers)
+            \end{itemize}
+            \item PCR Components
+            \begin{itemize}
+                \item Template (source) DNA
+                \item DNA nucleotides (dNTPS) e.g. any nucleotide triphosphates
+                \item oligonucleotides primers
+                \item Buffers/salts - magnesium buffers triphosphate charge: need proper envrionment for DNA polymerase to work
+                \item DNA polymerase
+            \end{itemize}
+            \item PCR cycle
+            \begin{enumerate}
+                \item Denature - $95\deg$ C: heat to separate DNA strands
+                \item Anneal (prime) - $50-60\deg$ C: cool to allow primers to bind to template DNA
+                \item Extend - $72\deg$ C: heat to allow DNA polymerase to synthesize new DNA strand
+                \item Repeat
+            \end{enumerate}
+            \item Heat stable polymerase greatly improves PCR
+            \begin{itemize}
+                \item Thermus aquaticus (Taq): bacteria that lives in Yellowstone hot springs has DNA polymerase that will not denature during heating of DNA to separate strands
+            \end{itemize}
+            \item The product of one cycle being used as a template in next cycle leads to an exponential increase in DNA - only works if the product of one primer contains the binding site for the other primer
+            \item Primer Sequence influences annealing temperature
+            \begin{itemize}
+                \item GC base pairs are stronger than AT pairs, so they can anneal at higher temps
+                \item Larger sequences anneal at higher temps
+            \end{itemize}
+        \end{itemize}
+        \item DNA Sequencing
+        \begin{itemize}
+            \item Reasosn to know a DNA molecule's nucleotide sequences
+            \begin{itemize}
+                \item Find and interpret genes
+                \item Asses evoluation connections
+                \item Discover and diagnose genetic disorders
+            \end{itemize}
+            \item Sanger Sequencing - 1977
+            \begin{itemize}
+                \item Similar to PCR, but only one primer is used and no chain reaction occurs
+                \item Dideoxynucleotides (ddNTPs) included to prematurely teminate strand synthesis (they do not have a 3' OH group)
+                \item Flourescently labeled ddNTPS + unlabled dNTPS + primer and polymerase + DNA template are added to sequence
+                \item Goal to creaate nucleotide stands of each length then sort by size to determine nucelotide at each location
+                \item Gel Electrophoresis
+                \begin{itemize}
+                    \item Uses electricity to separate DNA molecules by size (number of nucelotides)
+                    \item Larger molecules move through the gel slower than small moleculear and get stuck sooner
+                    \item Add a DNA sample to electric field and it slowly moves toward the postive end (nucleic acids are negatively charged)
+                \end{itemize}
+                \item Capillary Electrophoresis
+                \item Sanger sequencing can only sequence 100s to 1000s of base pairs at a time (a single read)
+                \item Human genome has 3.2 billion base pairs (shotgun sequencing used to sequnce many disjointed small portions)
+            \end{itemize}
+            \item Contigs and Coverage (Genome Sequencing Assembly)
+            \begin{itemize}
+                \item Contig: continuous segment of sequence created through overalapping reads (sequences)
+                \item Coverage: number of copies of genome sequnced, more coverage is needed for new genome assembly
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+\end{document}
