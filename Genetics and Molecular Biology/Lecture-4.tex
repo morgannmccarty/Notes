@@ -1,0 +1,86 @@
+\documentclass[12pt]{article}
+
+\usepackage{hyperref}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[fleqn]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+% \usepackage{tikz}
+
+% chktex-file 8
+
+\title{
+    Genetics and Molecular Biology: Lecture 4}
+\author{Morgan McCarty}
+\date{11 September 2024}
+
+\begin{document}
+    \maketitle
+    \begin{itemize}
+        \item DNA Polymerase can add new nucleotides to the 3' end of a DNA strand (removes triphosphate and adds new nucleotide which moving towards the 5' end of the template strand - 5' to 3' synthesis)
+        \item Limitations of DNA Polymerase:
+        \begin{itemize}
+            \item Cannot unwind double-standed DNA
+            \item Cannot start a chain, only adds nucleotides to existing chains
+            \item Can only add nucleotides to 3' ends
+            \item Cannot link existing DNA chains together
+        \end{itemize}
+        \item DNA Helicase
+        \begin{itemize}
+            \item Unwinds double-stranded DNA
+            \item Overwinds DNA in front of it (postive supercoiling: requires topoisomerase to reduce strain)
+        \end{itemize}
+        \item Primase (a type of RNA polymerase)
+        \begin{itemize}
+            \item Builds short RNA strands called primers that DNA polermase can work from to build a DNA strand
+            \item Binds to template strand and synthesizes an RNA primer
+            \item When primer is complete, primase is released and DNA polymerase continues synthesis
+        \end{itemize}
+        \item Leading Stand vs. Lagging Strand
+        \begin{itemize}
+            \item Leading strand: continuous
+            \item Lagging strand: discontinuous (Okazaki fragments)
+            \item Fork advancement direction opposite of one strand (lagging strand syntesized in the 3' to 5' direction at a high level - still synthesized 5' to 3' inside fragments)
+            \item Leading strand syntehsis occurs continuously - synthesized towards the replication Fork
+            \item Sliding clmap increases ``processivity'' of DNA polymerase (the ability to keep going without falling off)
+            \item Prokaryotes: DNA polymerase III beta subunit (sliding clamp), Eukaryotes: Proliferating Cell Nuclear Antigen (PCNA)
+            \item Lagging strand synthesis occurs discontinuously - synthesized away from the replication Fork
+            \item Series of segements called Okazaki fragments
+            \item DNA polymerases replaces RNA primers with DNA
+            \item Synthesis of individual segements on lagging strand goes away from fork, but fragments closer to the origin are built first
+            \item Single stranded binding proteins (SSBPs) prevent lagging strand from folding on itelf and blocking replication
+            \item Single stranded DNA tends to fold back on itself and form base-paired hairpins
+        \end{itemize}
+        \item Multiple DNA Polermerases are used in DNA replication
+        \begin{itemize}
+            \item DNA polymerase III: main DNA polymerase - 5' to 3' synthesis polymerase, 3' to 5' exonuclease for proofreading (removes incorrect nucleotides)
+            \item DNA polyermase I: specialzied DNA polymerase - 5' to 3' synthesis polymerase, 5' to 3' exonuclease for replacing RNA primers with DNA, 3' to 5' exonuclease for proofreading
+            \item ``Exonuclease'': cuts nucleotides of nucleic acid strands
+        \end{itemize}
+        \item DNA Ligase
+        \begin{itemize}
+            \item Connects adjacent strands of DNA together to combine Okazaki fragments to form one continuous new strand
+        \end{itemize}
+        \item New nucleotides come in as nucleotide triphosphates (dNTPs, like ATP). Los of two phosphate groups releases energy to connect to nucleotide to the growing DNA strand
+        \item Only adding new nucleotides to the 3' end of a strand allows for proofreading and removal of incorrect nucleotides
+        \item Phosphate group is on the 5' end of a nucleotide, hydroxyl group is on the 3' end
+        \item Telomeres and Telomerase
+        \begin{itemize}
+            \item End replication problem: Eukaryotes linear choromosomes can never be fully replication due to lagging strand dynamics
+            \item Chromosomes shorter during each replicative cycle
+            \item Telomers act as a buffer that postpones erosion of genes
+            \begin{itemize}
+                \item Non-protein coding reptitive sequences found at the end of chromosomes
+                \item Act as a buffer to prevent protein coding genes from being lost
+                \item Shorter with each replication
+                \item Limit replicative potential of cells, prevents cancer, but may contribute to aging
+            \end{itemize}
+            \item Telomerase Maintains Telomere Length in Gamete Producing Cells
+            \begin{itemize}
+                \item Telomerase: protein-RNA complex, RNA directed, DNA synthesis
+                \item Telomerase is inappropriately activated in as many as 90\% of human cancers
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+\end{document}
